@@ -984,6 +984,17 @@
 /* ADD */
 
 .padding{
-	padding-right: 17%;
-	padding-left: 17%;
+	padding-right: 14%;
+	padding-left: 14%;
+}
+.space{
+	margin-bottom: 6%;
+}
+.strong{
+	font-weight: bold;
+	font-size: 27px;
+}
+.subtitle{
+	font-weight: 500;
+	font-size: 19px;
 }
