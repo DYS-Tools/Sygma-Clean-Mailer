@@ -15,4 +15,15 @@ class HomeController extends AbstractController
         return $this->render('home.html.twig', [
         ]);
     }
+
+    /**
+     * @Route("/list/single/", name="list-single")
+     */
+    public function listSingle()
+    {
+
+        // TODO: reperer l'id de la liste
+        return $this->render('list-single.html.twig', [
+        ]);
+    }
 }
