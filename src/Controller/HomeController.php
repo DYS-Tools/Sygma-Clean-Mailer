@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\SendMailType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -10,9 +11,20 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index()
+    public function home()
     {
         return $this->render('home.html.twig', [
+        ]);
+    }
+
+    /**
+     * @Route("/mail", name="mail")
+     */
+    public function mail()
+    {
+        //$form = new SendMailType();
+
+        return $this->render('mail.html.twig', [
         ]);
     }
 
@@ -22,7 +34,6 @@ class HomeController extends AbstractController
     public function listSingle()
     {
 
-        // TODO: reperer l'id de la liste
         return $this->render('list-single.html.twig', [
         ]);
     }
