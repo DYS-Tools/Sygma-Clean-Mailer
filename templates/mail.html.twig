@@ -31,7 +31,17 @@
 					<button type="button" class="btn btn-success">Template Email</button><br/>
 				</div>
 
-				<!-- form envoi de mail -->
+				{{ form_start(EmailForm) }}
+				<div class="my-custom-class-for-errors">
+					{{ form_errors(EmailForm) }}
+				</div>
+
+				<div class="row">
+					<div class="col">
+						{{ form_widget(EmailForm) }}
+					</div>
+				</div>
+				{{ form_end(EmailForm) }}
 			</div>
 		</div>
 
