@@ -2,17 +2,52 @@
 
 namespace App\Controller;
 
+use App\Form\SendMailType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 class HomeController extends AbstractController
 {
     /**
      * @Route("/", name="home")
      */
-    public function index()
+    public function home()
     {
         return $this->render('home.html.twig', [
+        ]);
+    }
+
+    /**
+     * @Route("/mail", name="mail")
+     */
+    public function mail(Request $request, \Swift_Mailer $mailer)
+    {
+        $form = $this->createForm(SendMailType::class);
+        $form->handleRequest($request);
+
+        //$form->get($email)->getData()
+
+
+        $name = $form->get('Name')->getData();
+        $email = $form->get('Email');
+        $object = $form->get('Subject')->getData();
+        $msg = $form->get('Message')->getData();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $message = (new \Swift_Message($object))
+                ->setFrom($form->get('Email')->getData())
+                ->setTo('sacha6623@gmail.com')
+                ->setBody($msg);
+
+            $mailer->send($message);
+
+            $this->addFlash('info', "Email has been send");
+        }
+
+        return $this->render('mail.html.twig', [
+            'EmailForm' => $form->createView(),
         ]);
     }
 
@@ -22,7 +57,6 @@ class HomeController extends AbstractController
     public function listSingle()
     {
 
-        // TODO: reperer l'id de la liste
         return $this->render('list-single.html.twig', [
         ]);
     }
