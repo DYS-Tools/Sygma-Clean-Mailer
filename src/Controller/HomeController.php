@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Form\SendMailType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+
 
 class HomeController extends AbstractController
 {
@@ -17,6 +20,8 @@ class HomeController extends AbstractController
     {
         return $this->render('home.html.twig', [
         ]);
+
+
     }
 
     /**
@@ -26,9 +31,6 @@ class HomeController extends AbstractController
     {
         $form = $this->createForm(SendMailType::class);
         $form->handleRequest($request);
-
-        //$form->get($email)->getData()
-
 
         $name = $form->get('Name')->getData();
         $email = $form->get('Email');
