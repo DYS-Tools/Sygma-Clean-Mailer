@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\SendMailType;
+use App\Form\SettingUserFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -57,9 +58,24 @@ class HomeController extends AbstractController
     /**
      * @Route("/settings", name="setting")
      */
-    public function setting()
+    public function setting(Request $request)
     {
-        return $this->render('home.html.twig', [
+        $form = $this->createForm(SettingUserFormType::class);
+        $form->handleRequest($request);
+        $user = $this->getUser();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $host = $form->get('Name')->getData();
+
+
+            // $user->set Parameters for mailing
+            return $this->redirectToRoute('home');
+
+        }
+
+        return $this->render('security/setting.html.twig', [
+            'SettingForm' => $form->createView(),
+
         ]);
     }
 
