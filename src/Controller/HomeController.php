@@ -53,6 +53,16 @@ class HomeController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("/settings", name="setting")
+     */
+    public function setting()
+    {
+        return $this->render('home.html.twig', [
+        ]);
+    }
+
     /**
      * @Route("/list/single/", name="list-single")
      */
