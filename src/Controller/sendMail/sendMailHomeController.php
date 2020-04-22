@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\sendMail;
 
 use App\Form\SendMailType;
 use App\Form\SettingUserFormType;
@@ -12,14 +12,14 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class HomeController extends AbstractController
+class sendMailHomeController extends AbstractController
 {
     /**
      * @Route("/", name="home")
      */
     public function home()
     {
-        return $this->render('home.html.twig', [
+        return $this->render('sendMail/home.html.twig', [
         ]);
 
 
@@ -28,8 +28,9 @@ class HomeController extends AbstractController
     /**
      * @Route("/mail", name="mail")
      */
-    public function mail(Request $request, \Swift_Mailer $mailer)
+    public function mail(Request $request)
     {
+        /* REFAIRE AVEC LE COMPOSANT MAILER */
         $form = $this->createForm(SendMailType::class);
         $form->handleRequest($request);
 
@@ -39,12 +40,14 @@ class HomeController extends AbstractController
         $msg = $form->get('Message')->getData();
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /*
             $message = (new \Swift_Message($object))
                 ->setFrom($form->get('Email')->getData())
                 ->setTo('sacha6623@gmail.com')
                 ->setBody($msg);
 
             $mailer->send($message);
+            */
 
             $this->addFlash('info', "Email has been send");
         }
