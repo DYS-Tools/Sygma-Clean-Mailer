@@ -15,13 +15,12 @@ use Symfony\Component\HttpFoundation\Response;
 class sendMailHomeController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/sendMail", name="sendmail")
      */
     public function home()
     {
         return $this->render('sendMail/home.html.twig', [
         ]);
-
 
     }
 
@@ -52,7 +51,7 @@ class sendMailHomeController extends AbstractController
             $this->addFlash('info', "Email has been send");
         }
 
-        return $this->render('mail.html.twig', [
+        return $this->render('sendMail/mail.html.twig', [
             'EmailForm' => $form->createView(),
         ]);
     }

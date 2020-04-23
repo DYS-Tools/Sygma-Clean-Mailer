@@ -1,8 +1,9 @@
-{% extends 'base.html.twig' %}
+{% extends './base.html.twig' %}
 
 {% block title %}Speed Mailer{% endblock %}
 
 {% block body %}
+	{% include('sendMail/baseSendmail.html.twig') %}
 	<!-- Main -->
 		<div id="page">
 
