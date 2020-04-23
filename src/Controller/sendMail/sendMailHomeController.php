@@ -2,7 +2,7 @@
 
 namespace App\Controller\sendMail;
 
-use App\Form\SendMailType;
+use App\Form\sendMail\SendMailType;
 use App\Form\SettingUserFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
