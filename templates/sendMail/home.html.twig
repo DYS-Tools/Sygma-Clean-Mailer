@@ -8,48 +8,87 @@
 		{% include('sendMail/baseSendmail.html.twig') %}
 
 		<div id="page">
-			<div class="padding"><hr></div>
-			<h2 class="padding strong"> Mes listes Email</h2><br/>
-			<h4>{{ app.user.email }}</h4>
-			<div class="padding space">
-				<div class="bouton d-inline-flex p-2">
-					<button type="button" class="btn btn-success">Nouvelle liste Email</button><br/>
+			<div class="padding">
+
+				<h1> Your differents mailing list</h1>
+
+
+				<br/><br/><br/>
+				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalImportList">Import CSV</button>
+				<br/><br/>
+
+				<div class="modal fade" id="modalImportList" tabindex="-1" role="dialog" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Import a List</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<p>select the address file to import </p>
+
+								{{ form_start(listForm) }}
+								{{ form_widget(listForm) }}
+								<!--<button type="submit" class="btn btn-success pull-right">Ajouter</button>-->
+
+								<button class="btn btn-primary">Import</button>
+
+							</div>
+
+							{{ form_end(listForm) }}
+							<div class="modal-footer">
+								<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+							</div>
+
+
+
+						</div>
+					</div>
 				</div>
 
-				<table class="table table-borderless">
+				{% for message in app.flashes('info') %}
+					<div class="alert alert-success" role="alert">
+						{{ message }}
+					</div>
+				{% endfor %}
+
+				<table class="table">
 					<thead>
 					<tr>
 						<th scope="col">#</th>
-						<th scope="col">Nom de liste </th>
-						<th scope="col">Voir la liste </th>
-						<th scope="col">creation</th>
-						<th scope="col">contact</th>
+						<th scope="col">Name of CSV</th>
+						<th scope="col">Importation Date</th>
+						<th scope="col">unique Contact</th>
+						<th scope="col">Delete</th>
+						<th scope="col">Export</th>
 					</tr>
 					</thead>
 					<tbody>
-					<tr>
-						<th scope="row">1</th>
-						<td>Liste de diffusion</td>
-						<td><button type="button" class="btn btn-info">Voir la liste</button><br/></td>
-						<td>06/04/20</td>
-						<td>200</td>
-					</tr>
-					<tr>
-						<th scope="row">2</th>
-						<td>blog de commerce</td>
-						<td><button type="button" class="btn btn-info">Voir la liste</button><br/></td>
-						<td>06/04/20</td>
-						<td>21</td>
-					</tr>
-					<tr>
-						<th scope="row">3</th>
-						<td>Copywrinting liste</td>
-						<td><button type="button" class="btn btn-info">Voir la liste</button><br/></td>
-						<td>06/04/20</td>
-						<td>5415</td>
-					</tr>
+
+					{% for list in lists %}
+						<tr>
+							<th scope="row">{{  list.id }}</th>
+							<td> {{  list.name }} </td>
+							<td>Date</td>
+							<td>{{  list.contact }}</td>
+							<td>
+								<a href="{{ path('DeleteOnelist', { id : list.id}) }}">
+									<button type="button" class="btn btn-danger">Delete List</button>
+								</a>
+							</td>
+
+							<td>
+								<a href="{{ path('ExportOnelist', { id : list.id}) }}">
+									<button type="button" class="btn btn-success">Export CSV</button>
+								</a>
+							</td>
+						</tr>
+					{% endfor %}
 					</tbody>
 				</table>
+
 			</div>
 		</div>
 
