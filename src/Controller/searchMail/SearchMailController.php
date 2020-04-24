@@ -14,7 +14,7 @@ class SearchMailController extends AbstractController
     public function index(SearchMailGoogle $searchMailGoogle)
     {
 
-        $mailGoogleoogle = $searchMailGoogle->SearchInGoogle();
+        $mailGoogle = $searchMailGoogle->SearchInGoogle();
 
         dd($mailGoogle);
 
