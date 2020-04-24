@@ -13,9 +13,10 @@ class SearchMailController extends AbstractController
      */
     public function index(SearchMailGoogle $searchMailGoogle)
     {
+        // Todo : form with keyword
+        // Todo use SearchInGoogleWithKeyword Service
 
         $mailGoogle = $searchMailGoogle->SearchInGoogle();
-
         dd($mailGoogle);
 
         return $this->render('searchMail/index.html.twig', [
