@@ -2,8 +2,11 @@
 
 namespace App\Controller\sendMail;
 
+use App\Entity\ListMail;
+use App\Form\sendMail\ListFormType;
 use App\Form\sendMail\SendMailType;
 use App\Form\SettingUserFormType;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,14 +15,48 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 
 
+
 class sendMailHomeController extends AbstractController
 {
     /**
      * @Route("/sendMail", name="sendmail")
      */
-    public function home()
+    public function home(Request $request, EntityManagerInterface $entityManager)
     {
+        $ListRepo = $this->getDoctrine()->getRepository(ListMail::class);
+        $lists = $ListRepo->findBy(['user' => $this->getUser()]);
+        $form = $this->createForm(ListFormType::class);
+        $form->handleRequest($request);
+
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $file = $form['file']->getData();
+            /*
+            $fileName = $upload->upload($file);
+            */
+
+            $listmail = new ListMail();
+            $listmail->setUser($this->getUser());
+            $listmail->setName($form['name']->getData());
+            //$listmail->setPath($fileName);
+
+            $entityManager->persist($listmail);
+
+            //$emailNumber = $extract->ExtractDataInDocument($fileName,$listmail);
+            $emailNumber = 20;
+            $listmail->setContact($emailNumber);
+            $entityManager->persist($listmail);
+
+            $entityManager->flush();
+
+            $this->addFlash('info', $emailNumber .' contact has been imported');
+            $this->redirectToRoute('lists');
+        }
+
         return $this->render('sendMail/home.html.twig', [
+            'listForm' => $form->createView(),
+            'lists' => $lists,
         ]);
 
     }
