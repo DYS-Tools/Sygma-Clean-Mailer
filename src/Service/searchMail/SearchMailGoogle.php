@@ -7,6 +7,7 @@ use Symfony\Component\HttpClient\HttpClient;
 
 class SearchMailGoogle
 {
+    
     public function SearchInGoogleLink($keyword1) {
         //Search With keyword
         $client = HttpClient::create();
@@ -28,16 +29,18 @@ class SearchMailGoogle
         foreach ($listLinkInGoogleKeyword[0] as $listLinkInGoogleKeyword) {
             // Todo :  Check Status code in links
             $statusCode = $response->getStatusCode();
+
             dump($statusCode);
             dump($listLinkInGoogleKeyword);
-
-            if ( $statusCode === 200 ) {
+            
+            if ( $statusCode == 200 ) {
                 // search mail with GetMailInGoogle
                 $response = $client->request('GET', $listLinkInGoogleKeyword);
-                $content = $response->getContent();
-                $mail = $this->GetMailInGoogle($content);
+                if($response->getstatusCode() == 200){
+                    $content = $response->getContent();
+                    $mail = $this->GetMailInGoogle($content);
+                }
             }
-            else {}
         }
 
     }
