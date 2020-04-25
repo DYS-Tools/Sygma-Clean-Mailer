@@ -63,6 +63,14 @@ class sendMailHomeController extends AbstractController
     }
 
     /**
+     * @Route("/mailTemplate", name="mailTemplate")
+     */
+    public function mailTemplate(){
+        return $this->render('sendMail/mailTemplate.html.twig', [
+        ]);
+    }
+
+    /**
      * @Route("/mail", name="mail")
      */
     public function mail(Request $request)
