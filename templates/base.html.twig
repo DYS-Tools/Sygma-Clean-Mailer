@@ -22,7 +22,7 @@
 
     <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="{{ path('home') }}">Speed Mailer</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -32,7 +32,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('searchMail') }}">Chercher des emails</a>
                 </li>
-                <!-- TODO : Replace mailing and parameters for SearchMail service-->
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('sendmail') }}">Envoyez vos Email</a>
                 </li>
@@ -44,7 +43,9 @@
     </nav>
 
     <br/>
-    <hr/>
+    <br/>
+    <br/>
+
     <br/>
         {% block body %}
             <!-- Template twig -->
