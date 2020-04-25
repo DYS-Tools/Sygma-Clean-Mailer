@@ -23,8 +23,6 @@ class SearchMailController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $keyword1 = $form['keyword']->getData();
-
-
             $mailGoogle = $searchMailGoogle->SearchInGoogleLink($keyword1);
 
         }
