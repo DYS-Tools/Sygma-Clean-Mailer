@@ -1,0 +1,18 @@
+<?php
+
+namespace App\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
+
+class OrderController extends AbstractController
+{
+    /**
+     * @Route("/order", name="order")
+     */
+    public function BuyApplication()
+    {
+        return $this->render('order/order.html.twig', [
+        ]);
+    }
+}
