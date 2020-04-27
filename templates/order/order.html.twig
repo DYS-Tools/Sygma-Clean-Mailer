@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Speed Mailer{% endblock %}
+{% block title %}Order{% endblock %}
 
 {% block body %}
     <!-- Main -->
@@ -10,8 +10,10 @@
         <div class="padding space">
             <h2> </h2>
             <br/>
+            {{ include('order/paymentForm.html.twig') }}
+
             <div class="bouton d-inline-flex p-2">
-                <button type="button" class="btn btn-success">Payer </button><br/>
+                <a href="#"><button type="button" class="btn btn-success">Payer </button></a><br/>
             </div>
         </div>
 
@@ -20,6 +22,50 @@
 
 
 
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <script>
+    var stripe = Stripe({{ stripe_secret_key }});
+    Stripe.setPublishableKey('pk_test_TGtA6UYxUCTUjcn4mEZel1B7005bOmhxy3');
+
+    var $form = $('#payment-form'); // On récupère le formulaire
+    $form.submit(function (e) {
+      e.preventDefault();
+      $form.find('button').prop('disabled', true); // On désactive le bouton submit
+      Stripe.card.createToken({
+        number: $('.card-number').val(),
+        cvc: $('.card-cvc').val(),
+        exp_month: $('.card-expiry-month').val(),
+        exp_year: $('.card-expiry-year').val()
+      }, function (status, response) {
+        if (response.error) { // Ah une erreur !
+          // On affiche les erreurs
+          $form.find('.payment-errors').text(response.error.message);
+          $form.find('button').prop('disabled', false); // On réactive le bouton
+        } else { // Le token a bien été créé
+          var token = response.id; // On récupère le token
+          // On crée un champs cachée qui contiendra notre token
+          $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+          $form.get(0).submit(); // On soumet le formulaire
+        }
+      });
+    });
 
 
+    stripe.redirectToCheckout({
+      // Make the id field from the Checkout Session creation API response
+      // available to this file, so you can provide it as parameter here
+      // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
+        sessionId: '{{CHECKOUT_SESSION_ID}}'
+    }).then(function (result) {
+      // If `redirectToCheckout` fails due to a browser or network
+      // error, display the localized error message to your customer
+      // using `result.error.message`.
+    });
+
+    </script>
 {% endblock %}
