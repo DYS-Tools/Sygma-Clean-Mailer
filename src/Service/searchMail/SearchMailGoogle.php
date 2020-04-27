@@ -7,46 +7,48 @@ use Symfony\Component\HttpClient\HttpClient;
 
 class SearchMailGoogle
 {
-    
     public function SearchInGoogleLink($keyword1) {
         //Search With keyword
         $client = HttpClient::create();
         $response = $client->request('GET', 'https://www.google.com/search?q='.$keyword1.'&num=1000');
 
         // get Content
-        $Googlecontent = $response->getContent();
+        $GoogleContent = $response->getContent();
+        //dd($GoogleContent);
 
         // Clean content
-        $Googlecontent = str_replace([">","<","\"","'","-","="], " ",  $Googlecontent);
+        $GoogleContent = str_replace([">","<","\"","'","="], " ",  $GoogleContent);
 
         // search https with regex
-        preg_match_all("#(https?://)([\w\d.:\#@%/;$~_?\+-=]*)#",$Googlecontent, $listLinkInGoogleKeyword);
+        preg_match_all("#(https?://)([\w\d.:\#@%/;$~_?\+-=]*)#",$GoogleContent, $listLinkInGoogleKeyword);
+        // test with regex
+        //preg_match_all("#(https?):\/\/[a-z0-9\/:%_+.,\#?!@&=-]+#i",$GoogleContent, $listLinkInGoogleKeyword);
 
         // tab Links
         dump($listLinkInGoogleKeyword[0]); // 0 = https , 1 = "https", 2 = www
 
         // foreach tab for search mail in links
         foreach ($listLinkInGoogleKeyword[0] as $listLinkInGoogleKeyword) {
-            // Todo :  Check Status code in links
             $statusCode = $response->getStatusCode();
 
             dump($statusCode);
             dump($listLinkInGoogleKeyword);
-            
-            if ( $statusCode == 200 ) {
+
+            if ( $statusCode === 200 ) {
+                // todo : error fopen ssl
+                $listLinkInGoogleKeyword = str_replace(["https"], "http",  $listLinkInGoogleKeyword);
                 // search mail with GetMailInGoogle
                 $response = $client->request('GET', $listLinkInGoogleKeyword);
-                if($response->getstatusCode() == 200){
+                if($response->getstatusCode() === 200){
                     $content = $response->getContent();
-                    $mail = $this->GetMailInGoogle($content);
+                    $mail = $this->GetMailInLinkContent($content);
+                    dump($mail) ;
                 }
             }
         }
-
     }
 
-    private function GetMailInGoogle($content) {
-
+    private function GetMailInLinkContent($content) {
         // Clean content
         $content = str_replace([">","<",":","/","\"","'","-","="], " ",  $content);
         // Search mail with regex
