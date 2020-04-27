@@ -30,3 +30,7 @@ services:
     App\Service\sendMailService\upload:
         arguments:
             $targetDirectory: '%csvUploadDirectory%'
+
+    App\Service\payment:
+        arguments:
+            $secretStripeKeyTest: '%env(resolve:STRIPE_SECRET_TEST)%'

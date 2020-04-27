@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Our Offers{% endblock %}
+
+{% block body %}
+    <!-- Main -->
+    <div id="page">
+
+        <h1 class="padding strong"> Comment nous pouvons vous aider ? </h1><br/>
+        <div class="padding space">
+            <h2> </h2>
+            <ul>
+                <li> Recherche d'email</li>
+                <li> Envoi de mail</li>
+                <li> clean de database</li>
+            </ul>
+            <br/>
+            <div class="bouton d-inline-flex p-2">
+                <a href="{{ path('order') }}"><button type="button" class="btn btn-success">Payer 5 euros</button></a><br/>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+{% endblock %}
