@@ -21,7 +21,7 @@ class SearchMailController extends AbstractController
         $form = $this->createForm(KeywordSearchType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
+            // Todo : if checkbox form is valid
             $keyword1 = $form['keyword']->getData();
             $mailGoogle = $searchMailGoogle->SearchInGoogleLink($keyword1);
 
