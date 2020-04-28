@@ -3,6 +3,7 @@
 namespace App\Form\searchMail;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -19,13 +20,13 @@ class KeywordSearchType extends AbstractType
                 'label' => false,
             ])
 
-            ->add('Google', RadioType::class, [
+            ->add('Google', CheckboxType::class, [
                 'label' => 'Google',
                 'required'   => false,
                 'by_reference' => false,
             ])
 
-            ->add('Facebook', RadioType::class, [
+            ->add('Facebook', CheckboxType::class, [
                 'label' => 'Facebook',
                 'required'   => false,
                 'by_reference' => false,
