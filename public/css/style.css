@@ -13,8 +13,6 @@ h1,h2,h3,h4,h5{
     font-weight: bold;
 }
 
-
-
 /**
  * The CSS shown here will not be introduced in the Quickstart guide, but shows
  * how you can use CSS to style your Element's container.
@@ -46,3 +44,4 @@ h1,h2,h3,h4,h5{
   .StripeElement--webkit-autofill {
     background-color: #fefde5 !important;
   }
+
