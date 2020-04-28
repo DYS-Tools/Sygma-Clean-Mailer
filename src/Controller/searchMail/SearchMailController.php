@@ -21,15 +21,18 @@ class SearchMailController extends AbstractController
         $form = $this->createForm(KeywordSearchType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // Todo : if checkbox form is valid
-            $keyword1 = $form['keyword']->getData();
-            $mailGoogle = $searchMailGoogle->SearchInGoogleLink($keyword1);
 
+            //$this->addFlash('Search','cela peut prendre plusieurs minute..');
+
+            if ( $form['Google']->getData() === true  ) {
+                //$this->addFlash('Search','Recherche des emails sur Google');
+                $keyword1 = $form['keyword']->getData();
+                $mailGoogle = $searchMailGoogle->SearchInGoogleLink($keyword1);
+            }
+            if ( $form['Facebook']->getData() === true  ) {
+                dd("Facebook Value");
+            }
         }
-
-        //$mailGoogle = $searchMailGoogle->SearchInGoogleLink();
-        //dd($mailGoogle);
-
         return $this->render('searchMail/index.html.twig', [
             'form' => $form->createView()
         ]);
