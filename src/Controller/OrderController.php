@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-
+use App\Entity\Order;
 use App\Service\payment;
 use Stripe\Stripe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,7 +15,6 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 class OrderController extends AbstractController
 {
 
-
     /**
      * @Route("/offer", name="offer")
      */
@@ -26,37 +25,53 @@ class OrderController extends AbstractController
     }
 
 
-
-
     /**
      * @Route("/order", name="order")
      */
     public function BuyApplicationWithOrder(payment $payment, Request $request)
     {
         $number = 50.00;
-        $payment->makePayment(5);
+        //$payment->makePayment(5);
 
         // Payment Card For Testing : 4242424242424242
         Stripe::setApiKey($payment->getStripeSecretCredentials());
 
-        $session = \Stripe\Checkout\Session::create([
-            'payment_method_types' => ['card'],
-            'line_items' => [[
-                'name' => 'Speed Mailer',
-                'description' => 'Comfortable cotton t-shirt',
-                'images' => ['https://example.com/t-shirt.png'],
-                'amount' => $number,
-                'currency' => 'eur',
-                'quantity' => 1,
-            ]],
-            'success_url' => 'https://example.com/success?session_id={CHECKOUT_SESSION_ID}',
-            'cancel_url' => 'https://example.com/cancel',
-        ]);
+        /*
+        if (!$order) {
+            //$order = new Order();
+        }
+        */
+
+        //$form = $this->createForm(PaiementType::class, $order);
+     
+        //$form->handleRequest($request);
+     
+        $token =\Stripe\Token::create([
+            'card' => [
+              'number' => '4000002500000003',
+              'exp_month' => 12,
+              'exp_year' => 2040,
+              'cvc' => 464,
+              'name'=> 'Harry Covert',
+              'address_country'=>'FR',
+              'address_city'=>'Strasbourg'
+     
+            ]
+          ]);
+     
+         \Stripe\Charge::create([
+            'amount' => 9000, //le montant est en centime
+            'currency' => 'eur',
+            'description' => 'test paye',
+            'source' => $token,
+            //'customer'=> $customer
+            ]);
 
 
         return $this->render('order/order.html.twig', [
             'stripe_secret_key' => $payment->getStripeSecretCredentials(),
-            'session' => $session
+            'stripe_public_key' => $payment->getStripePublicCredentials(),
+            //'formPay' ->$form->createView()
         ]);
     }
 }

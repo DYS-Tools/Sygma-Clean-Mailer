@@ -23,17 +23,24 @@ class payment
 
     private $entityManager;
     private $secretStripeKeyTest;
+    private $publicStripeKeyTest;
 
 
-    public function __construct(EntityManagerInterface $entityManager, $secretStripeKeyTest)
+    public function __construct(EntityManagerInterface $entityManager, $secretStripeKeyTest, $publicStripeKeyTest)
     {
         $this->entityManager = $entityManager;
         $this->secretStripeKeyTest = $secretStripeKeyTest;
+        $this->publicStripeKeyTest = $publicStripeKeyTest;
     }
 
     public function getStripeSecretCredentials(){
-        //return public key
+        //return secret key
         return $this->secretStripeKeyTest;
+    }
+
+    public function getStripePublicCredentials(){
+        //return public key
+        return $this->publicStripeKeyTest;
     }
 
 
