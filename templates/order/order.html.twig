@@ -10,24 +10,25 @@
         <div class="padding space">
             <h2> </h2>
             <br/>
+            {{ include('order/paymentForm.html.twig') }}
             <div class="bouton d-inline-flex p-2">
                 <a href="#"><button type="button" class="btn btn-success">Payer </button></a><br/>
             </div>
         </div>
-        {{ include('order/paymentForm.html.twig') }}
+        
     </div>
     
+
+
+
 {% endblock %}
 
 {% block javascript %}
     {{ parent() }}
    
     <script>
-      var stripe = Stripe('{{ stripe_public_key }}');
+      var stripe = Stripe('{{ stripe_public_key}}');
     </script>
-
-
-
 
     <script>
     /*
@@ -35,7 +36,7 @@
       // Make the id field from the Checkout Session creation API response
       // available to this file, so you can provide it as parameter here
       // instead of the { {CHECKOUT_SESSION_ID}} placeholder.
-        sessionId: '{ {CHECKOUT_SESSION_ID}}'
+      // sessionId: '{ {CHECKOUT_SESSION_ID}}'
     }).then(function (result) {
       // If `redirectToCheckout` fails due to a browser or network
       // error, display the localized error message to your customer
