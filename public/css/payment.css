@@ -1,4 +1,3 @@
-
 /**
  * store.css
  * Stripe Payments Demo. Created by Romain Huet (@romainhuet).
@@ -16,13 +15,6 @@
   font-size: 15px;
   line-height: 1.4em;
   color: #525f7f;
-}
-
-body {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  background: #f8fbfd;
 }
 
 /* Overall Container */
