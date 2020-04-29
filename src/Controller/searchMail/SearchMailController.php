@@ -33,7 +33,7 @@ class SearchMailController extends AbstractController
                 dd("Facebook Value");
             }
         }
-        return $this->render('searchMail/index.html.twig', [
+        return $this->render('searchMail/dashboardAdmin.html.twig', [
             'form' => $form->createView()
         ]);
     }
