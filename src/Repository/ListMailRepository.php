@@ -19,6 +19,12 @@ class ListMailRepository extends ServiceEntityRepository
         parent::__construct($registry, ListMail::class);
     }
 
+    public function countAllListMail()
+    {
+        $qb = $this->createQueryBuilder('e');
+        $qb ->select($qb->expr()->count('e'));
+        return (int) $qb->getQuery()->getSingleScalarResult();
+    }
     // /**
     //  * @return ListMail[] Returns an array of ListMail objects
     //  */
