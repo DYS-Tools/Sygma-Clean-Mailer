@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\HttpClient\HttpClient;
 
 class OrderController extends AbstractController
 {
@@ -32,91 +33,38 @@ class OrderController extends AbstractController
      */
     public function BuyApplicationWithOrder(payment $payment, Request $request)
     {
+    
         Stripe::setApiKey($payment->getStripeSecretCredentials());
-
-
-            $form = $this->createForm(PaymentFormType::class);
-            $form->handleRequest($request);
-
-            $token =\Stripe\Token::create([
-                'card' => [
-                'number' => '4242 4242 4242 4242',
-                'exp_month' => 12,
-                'exp_year' => 2040,
-                'cvc' => 464,
-                'name'=> 'Harry Covert',
-                'address_country'=>'FR',
-                'address_city'=>'Strasbourg'
         
-                ]
-            ]);
-
-           
-
+            //TODO: Create success and cancel URL and redirect payment
+            $session = \Stripe\Checkout\Session::create([
+                'payment_method_types' => ['card'],
+                'line_items' => [[
+                  'name' => 'T-shirt',
+                  'description' => 'Comfortable cotton t-shirt',
+                  'images' => ['https://example.com/t-shirt.png'],
+                  'amount' => 500,
+                  'currency' => 'eur',
+                  'quantity' => 1,
+                ]],
+                'success_url' => 'https://SpeedMailer/sucessURL',
+                'cancel_url' => 'https://SpeedMailer/cancelURL',
+              ]);
+        
         return $this->render('order/order.html.twig', [
-            'stripe_secret_key' => $payment->getStripeSecretCredentials(),
             'stripe_public_key' => $payment->getStripePublicCredentials(),
-            'formPay' => $form->createView()
+            'CHECKOUT_SESSION_ID' => $session['id']
         ]);
     }
 
     /**
-     * @Route("/pay", name="pay")
+     * @Route("/StateOfPayment/{state}", name="StateOfPayment")
      */
-    public function pay(payment $payment){
-
-        Stripe::setApiKey($payment->getStripeSecretCredentials());
-
-        $session = \Stripe\Checkout\Session::create([
-            'payment_method_types' => ['card'],
-            'line_items' => [[
-              'name' => 'A grant Access',
-              'description' => 'Your custom designed t-shirt',
-              'amount' => 15000,
-              'currency' => 'eur',
-              'quantity' => 1,
-            ]],
-            'success_url' => 'https://successStripe',
-            'cancel_url' => 'https://cancelStripe',
-          ]);
-
-        //dump($task = $form['name']->getData());
-                dump('form soumis');
-                $number = 500;
-                //$payment->makePayment(5);
-
-                // Payment Card For Testing : 4242424242424242
-            
-                //$data = Charge::retrieve('ch_%');
-                $token =\Stripe\Token::create([
-                    'card' => [
-                    'number' => '4242 4242 4242 4242',
-                    'exp_month' => 12,
-                    'exp_year' => 2040,
-                    'cvc' => 464,
-                    'name'=> 'Harry Covert',
-                    'address_country'=>'FR',
-                    'address_city'=>'Strasbourg'
-            
-                    ]
-                ]);
-
-
-                \Stripe\Charge::create([
-                    'amount' => $number, //le montant est en centime
-                    'currency' => 'eur',
-                    'description' => 'test paye',
-                    'source' => $token,
-                    ]);
-        
-                    $intent = \Stripe\PaymentIntent::create([
-                        'amount' => $number, // Le prix doit être transmis en centimes
-                        'currency' => 'eur',
-                    ]);
-
-
+    public function StateOfPayment(payment $payment, $state){
+                
         return $this->render('order/stateOfPayment.html.twig', [
-            'state' => 'Indisponible'
+            'state' => $state
         ]);
+        
     }
 }
