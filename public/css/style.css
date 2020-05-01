@@ -12,6 +12,7 @@ h1,h2,h3,h4,h5{
     font-family: "Comic Sans MS";
     font-weight: bold;
 }
+<<<<<<< HEAD
 
 /**
  * The CSS shown here will not be introduced in the Quickstart guide, but shows
@@ -44,6 +45,12 @@ h1,h2,h3,h4,h5{
   .StripeElement--webkit-autofill {
     background-color: #fefde5 !important;
   }
+=======
+hr{
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+>>>>>>> b7f18eead8b89a60f54994dcfe825e07babcbdac
 
 /* Footer */
 
@@ -210,4 +217,3 @@ h1,h2,h3,h4,h5{
         font-weight:600
     }
 }
-
