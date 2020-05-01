@@ -6,7 +6,18 @@
         <meta name="description" content="SpeedMailer" />
         <meta name="keywords" content="SpeedMailer" />
 
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <!-- Facebook and Twitter integration -->
+        <meta property="og:title" content=""/>
+        <meta property="og:image" content=""/>
+        <meta property="og:url" content=""/>
+        <meta property="og:site_name" content=""/>
+        <meta property="og:description" content=""/>
+        <meta name="twitter:title" content="" />
+        <meta name="twitter:image" content="" />
+        <meta name="twitter:url" content="" />
+        <meta name="twitter:card" content="" />
+
+        <title>{% block title %}Home{% endblock %}</title>
 
         {% block stylesheets %}
 
@@ -22,30 +33,65 @@
             <link rel="stylesheet" href="{{ asset('css/payment.css') }}" />
             <script src="{{ asset('js/payment.js') }}"></script>
 
+
+            <!-- AJOUT THEME -->
+            <!-- Bootstrap  -->
+            <link rel="stylesheet" href="theme/css/bootstrap.css">
+            <!-- Owl Carousel  -->
+            <link rel="stylesheet" href="theme/css/owl.carousel.css">
+            <link rel="stylesheet" href="theme/css/owl.theme.default.min.css">
+            <!-- Animate.css -->
+            <link rel="stylesheet" href="theme/css/animate.css">
+            <!-- Font Awesome -->
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+            <!-- Theme style  -->
+            <link rel="stylesheet" href="theme/css/style.css">
+            
+            <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+                        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+                        crossorigin="anonymous">
+
+            <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+                  integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+                  crossorigin="anonymous">
+
+            <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+            <link rel="stylesheet" href="{{ asset('css/payment.css') }}" />
+            <script src="{{ asset('js/payment.js') }}"></script>
+
         {% endblock %}
 
     </head>
 
     <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{{ path('home') }}">Speed Mailer</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('searchMail') }}">Chercher des emails</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('sendmail') }}">Envoyez vos Email</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('setting') }}">Parametre</a>
-                </li>
+<div id="page-wrap">
 
-                {% if is_granted('ROLE_ADMIN') %}
+
+	<!-- ==========================================================================================================
+													   HERO
+		 ========================================================================================================== -->
+
+	<div id="fh5co-hero-wrapper">
+		<nav class="container navbar navbar-expand-lg main-navbar-nav navbar-light">
+			<a class="navbar-brand" href="">Speed Mail</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav nav-items-center ml-auto mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="{{ path('searchMail') }}">Mes listes <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('sendmail') }}">Nettoyage</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('setting') }}">Parametre</a>
+					</li>
+					 {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_dashboard_admin') }}">Dashboard</a>
                     </li>
@@ -69,14 +115,24 @@
                             <a class="nav-link" href="{{ path('app_register') }}">Inscription</a>
                         </li>
                 {% endif %}
+				
+				</ul>
+				
+			</div>
+		</nav>
 
-            </ul>
-        </div>
-    </nav>
+		<div class="container fh5co-hero-inner">
+			<h1 class="animated fadeIn wow" data-wow-delay="0.4s">Speed Mailer was created to efficiently clean your email lists</h1>
+			<p class="animated fadeIn wow" data-wow-delay="0.67s">clean email lists to have a better deliverability rate, a better rating with autoresponders, and avoid spam traps </p>
+			<button class="btn btn-md download-btn-first wow fadeInLeft animated" data-wow-delay="0.85s" onclick="$('#fh5co-download').goTo();return false;">Beginning Here</button>
+			<button class="btn btn-md features-btn-first animated fadeInLeft wow" data-wow-delay="0.95s" onclick="$('#fh5co-features').goTo();return false;">Features</button>
+			<!--<img class="fh5co-hero-smartphone animated fadeInRight wow" data-wow-delay="1s" src="img/phone-image.png" alt="Smartphone">-->
+		</div>
 
-    <br/>
-    <br/>
-    <br/>
+
+	</div> <!-- first section wrapper -->
+
+
 
 
 
@@ -84,56 +140,47 @@
         {% block body %}
             <!-- Template twig -->
         {% endblock %}
+        </div> <!-- end of id="page-wrap"-->
+
+
 
     <br/>
-    <!-- Site footer -->
-    <footer class="site-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-md-6">
-                    <h6>Speed Mailer</h6>
-                    <p class="text-justify"> Hello</p>
-                </div>
+   <!-- ==========================================================================================================
+                                               SECTION 7 - SUB FOOTER
+    ========================================================================================================== -->
 
-                <div class="col-xs-6 col-md-3">
-                    <h6>Autres</h6>
-                    <ul class="footer-links">
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Mentions Légal</a></li>
-                    </ul>
-                </div>
+	<footer class="footer-outer">
+		<div class="container footer-inner">
 
-                <div class="col-xs-6 col-md-3">
-                    <h6>Divers</h6>
-                    <ul class="footer-links">
-                        <li><a href="#">Qui sommes nous ? </a></li>
-                        <li><a href="#">Nous contacter </a></li>
-                        <li><a href="#">API </a></li>
-                    </ul>
-                </div>
-            </div>
-            <hr>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-sm-6 col-xs-12">
-                    <p class="copyright-text">Copyright &copy; 2020 All Rights Reserved by
-                        <a href="#">DYS-Tools</a>.
-                    </p>
-                </div>
+			<div class="footer-three-grid wow fadeIn animated" data-wow-delay="0.66s">
+				<div class="column-1-3">
+					<h1>Speed Mailer</h1>
+				</div>
+				<div class="column-2-3">
+					<nav class="footer-nav">
+						<ul>
+							<a href="#" onclick="$('#fh5co-hero-wrapper').goTo();return false;"><li>A propos</li></a>
+							<a href="#" onclick="$('#fh5co-features').goTo();return false;"><li>Mentions Légales</li></a>
+							<a href="#" onclick="$('#fh5co-reviews').goTo();return false;"><li>FAQ</li></a>
+							<a href="#" onclick="$('#fh5co-download').goTo();return false;"><li class="active">Tarifs </li></a>
+						</ul>
+					</nav>
+				</div>
+				<div class="column-3-3">
+					<div class="social-icons-footer">
+						<a href="https://www.facebook.com/fh5co"><i class="fab fa-facebook-f"></i></a>
+						<a href="https://freehtml5.co"><i class="fab fa-instagram"></i></a>
+						<a href="https://www.twitter.com/fh5co"><i class="fab fa-twitter"></i></a>
+					</div>
+				</div>
+			</div>
 
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <ul class="social-icons">
-                        <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
-                        <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
+			<span class="border-bottom-footer"></span>
 
+			<p class="copyright">&copy; 2018 App. All rights reserved. Design by <a href="https://freehtml5.co" target="_blank">DYS-Tools</a>.</p>
+
+		</div>
+	</footer>
 
         {% block javascripts %}
             <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -144,6 +191,14 @@
                     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
                     crossorigin="anonymous">
             </script>
+
+
+            <!-- THEME -->
+            <script src="theme/js/jquery.min.js"></script>
+            <script src="theme/js/bootstrap.js"></script>
+            <script src="theme/js/owl.carousel.js"></script>
+            <script src="theme/js/wow.min.js"></script>
+            <script src="theme/js/main.js"></script>
         {% endblock %}
 
 
