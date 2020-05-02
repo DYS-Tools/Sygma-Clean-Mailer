@@ -1,0 +1,34 @@
+{%  extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="padding">
+    <div>
+        {{ form_start(emailForm) }}
+        {{ form_widget(emailForm) }}
+        <button type="submit" class="btn btn-success pull-right">Verifier</button>
+        {{ form_end(emailForm) }}
+        <br/><br/>
+    </div>
+    <h1> Clean your mailing list </h1>
+
+    {% for message in app.flashes('info') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+
+    <br/>
+    <h3> Select on list</h3>
+    <p> choice your options</p>
+    {{ form_start(listOptionForm) }}
+    {{ form_widget(listOptionForm) }}
+    <button type="submit" class="btn btn-success pull-right">Select</button>
+    {{ form_end(listOptionForm) }}
+
+    <br/><br/><br/>
+
+</div>
+
+{% endblock %}
