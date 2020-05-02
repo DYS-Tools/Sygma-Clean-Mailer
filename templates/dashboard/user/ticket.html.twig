@@ -24,5 +24,32 @@
             {{ form_end(form) }}
         </div>
 
+        <!-- if ticket > 0 -->
+        <h2> Vous avez ouvert {{countTicketUserOpen}} Ticket(s) </h2>
+
+        {% if countTicketUserOpen > 0  %}
+            <h3> Ticket Ouvert </h3>
+            {% for ticketUserOpen in ticketUserOpen %}
+                <p> <strong>ouvert le : </strong>{{ ticketUserOpen.createdAt|date('Y-m-d')}}<br/>
+                    <strong>Objets de votre demande :</strong> {{ ticketUserOpen.object}} <br/>
+                    <strong>Message : </strong>{{ ticketUserOpen.content}}<br/>
+                    <strong>Réponse de l'adminitrateur :</strong> {{ ticketUserOpen.responseAdmin }}
+                </p>
+            {% endfor %}
+        {%  endif  %}
+
+        {% if countTicketUserClose > 0  %}
+            <h3> Ticket Résolu </h3>
+            {% for ticketUserClose in ticketUserClose %}
+
+                <p> <strong>ouvert le : </strong>{{ ticketUserClose.createdAt|date('Y-m-d')}}<br/>
+                    <strong>Objets de votre demande :</strong> {{ ticketUserClose.object}} <br/>
+                    <strong> Message :</strong> {{ ticketUserClose.content}}<br/>
+                    <strong> Réponse de l'adminitrateur : </strong> {{ ticketUserClose.responseAdmin }}
+                </p>
+            {% endfor %}
+        {%  endif  %}
+
+
     </div>
 {% endblock %}

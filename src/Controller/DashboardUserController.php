@@ -35,6 +35,9 @@ class DashboardUserController extends AbstractController
         $form = $this->createForm(TicketType::class, $ticket);
         $form->handleRequest($request);
 
+        // get current user
+        $user = $this->getUser() ;
+
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
@@ -48,11 +51,14 @@ class DashboardUserController extends AbstractController
             $em->flush();
 
             $this->addFlash('Ticket','Votre demande a bien été prise en compte.');
-
         }
 
         return $this->render('dashboard/user/ticket.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'ticketUserOpen' => $this->getDoctrine()->getRepository(Ticket::class)->findTicketOpenUser($user),
+            'ticketUserClose' => $this->getDoctrine()->getRepository(Ticket::class)->findTicketCloseUser($user),
+            'countTicketUserOpen' => $this->getDoctrine()->getRepository(Ticket::class)->countTicketOpenUser($user),
+            'countTicketUserClose' => $this->getDoctrine()->getRepository(Ticket::class)->countTicketCloseUser($user),
         ]);
     }
 }

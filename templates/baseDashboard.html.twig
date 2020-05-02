@@ -42,7 +42,11 @@
                     <a class="sidebar-menu" href="{{ path('app_dashboard_admin_ticket') }}">
                         <i class="fa fa-envelope"></i>
                         <span>Tickets </span>
-                        <span class="label label-theme pull-right mail-info">3</span>
+                        <span class="label label-theme pull-right mail-info">
+                            {%  if countTicketOpen is defined  %}
+                                {{ countTicketOpen }}
+                            {%  endif %}
+                        </span>
                     </a>
                 </li>
             {% elseif is_granted('ROLE_USER') %}
@@ -50,7 +54,11 @@
                     <a class="sidebar-menu" href="{{ path('app_dashboard_user_ticket') }}">
                         <i class="fa fa-envelope"></i>
                         <span>Tickets </span>
-                        <span class="label label-theme pull-right mail-info">3</span>
+                        <span class="label label-theme pull-right mail-info">
+                            {%  if countTicketOpen is defined  %}
+                                {{CountTicketUser}}
+                            {%  endif %}
+                        </span>
                     </a>
                 </li>
             {% endif %}
