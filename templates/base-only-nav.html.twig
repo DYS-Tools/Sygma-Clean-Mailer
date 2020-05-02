@@ -72,15 +72,14 @@
 													   HERO
 		 ========================================================================================================== -->
 
-	<div id="fh5co-hero-wrapper">
-		<nav class="container navbar navbar-expand-lg main-navbar-nav navbar-light">
-			<a class="navbar-brand" href="{{ path('home') }}">Speed Mail</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav nav-items-center ml-auto mr-auto">
+	
+		<nav class="navbar navbar-expand-lg navbar-light bg-light nav-only" style="background-color: cornflowerblue;">
+            <a class="navbar-brand" href="#">Speed Mailer</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav nav-items-center ml-auto mr-auto">
 					<li class="nav-item active">
 						<a class="nav-link" href="{{ path('lists') }}">Listes <span class="sr-only">(current)</span></a>
 					</li>
@@ -94,6 +93,10 @@
 					<li class="nav-item">
 						<a class="nav-link" href="{{ path('setting') }}">Parametre</a>
 					</li>
+                   
+				
+				</ul>
+                <ul class="navbar-nav nav-items-right ml-auto mr-auto">
                     {% if is_granted('ROLE_ADMIN') %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('app_dashboard_admin') }}">Dashboard</a>
@@ -117,22 +120,9 @@
                                 <a class="nav-link" href="{{ path('app_register') }}">Inscription</a>
                             </li>
                     {% endif %}
-				
-				</ul>
-				
-			</div>
-		</nav>
-
-		<div class="container fh5co-hero-inner">
-			<h1 class="animated fadeIn wow" data-wow-delay="0.4s">Speed Mailer was created to efficiently clean your email lists</h1>
-			<p class="animated fadeIn wow" data-wow-delay="0.67s">clean email lists to have a better deliverability rate, a better rating with autoresponders, and avoid spam traps </p>
-			<button class="btn btn-md download-btn-first wow fadeInLeft animated" data-wow-delay="0.85s" onclick="$('#fh5co-download').goTo();return false;">Beginning Here</button>
-			<button class="btn btn-md features-btn-first animated fadeInLeft wow" data-wow-delay="0.95s" onclick="$('#fh5co-features').goTo();return false;">Features</button>
-			<!--<img class="fh5co-hero-smartphone animated fadeInRight wow" data-wow-delay="1s" src="img/phone-image.png" alt="Smartphone">-->
-		</div>
-
-
-	</div> <!-- first section wrapper -->
+                </ul>
+            </div>
+        </nav>
 
         {% block body %}
             <!-- Template twig -->
