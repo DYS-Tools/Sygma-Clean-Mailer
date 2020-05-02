@@ -56,7 +56,7 @@ line-height: 52px;
 .pricing .type{
 	width: 300px;
 	border-radius: 5px 5px 0px 0px;
-	background-color: #eac80d;
+	background-color: rgb(0,170,221);
 	height: 62px;
 	border-bottom: 3px solid #bfa30c;
 
@@ -78,29 +78,23 @@ line-height: 52px;
 .pricing .plan{
 	width: 300px;
 	background-color: #2b2937;
-
 	border-radius: 0px 0px 5px 5px;
     font-family:'Open Sans';
     font-style:condensed;
     font-size: 90px;
     color: white;
     text-align: center;
-
-
 }
+
 .pricing .standard{
-	background-color: #1abc9c;
-	border-bottom: 3px solid #18937b;
+	background-color: rgb(0,170,221);
+	border-bottom: 3px solid #bfa30c;
 }
 
 .pricing .ultimate{
-	background-color: #5d6a9a;
-	border-bottom: 3px solid #474f6f;
+	background-color: rgb(0,170,221);
+	border-bottom: 3px solid #bfa30c;
 }
-
-
-
-
 
 .pricing .header{
 	border-bottom: 1px solid #494a5a;
@@ -135,8 +129,6 @@ line-height: 52px;
 }
 
 .pricing .bottom{
-  
-  
 }
 
 .pricing .content{
@@ -144,7 +136,7 @@ line-height: 52px;
 
 .pricing .login_c{
   width:500px;
-  background-color:#2b2937;
+  background-color: #2b2937;
   height:300px;
   margin: 0 auto;
   margin-top:40px;

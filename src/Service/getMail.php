@@ -21,19 +21,4 @@ class getMail
         dd($response);
         return $response->toArray();
     }
-
-    /*
-    public function getRstFiles()
-    {
-        $files = $this->getContents();
-        foreach ($files as $file) {
-            $length = strlen($file['name']);
-            $extension = substr($file['name'], $length - 3);
-            if($extension === 'rst') {
-                return $this->getContent($file);
-            }
-            //if extension === folder... (reloop  )
-        }
-    }
-    */
 }

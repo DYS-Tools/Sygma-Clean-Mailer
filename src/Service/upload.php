@@ -19,9 +19,6 @@ class upload
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
         $fileName = $safeFilename.'-'.uniqid().'.csv';
-        //$fileName = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
-        // try it in .CSV
-
         try {
             $file->move($this->getTargetDirectory(), $fileName);
         } catch (FileException $e) {

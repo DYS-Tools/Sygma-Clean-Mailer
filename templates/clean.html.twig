@@ -1,9 +1,10 @@
 {% extends 'baseDashboard.html.twig' %}
 
+{% block title %} Nettoyage {% endblock %}
+
 {% block body %}
 
 <div class="container">
-    
     <div>
         {{ form_start(emailForm) }}
         {{ form_widget(emailForm) }}
@@ -18,7 +19,6 @@
             {{ message }}
         </div>
     {% endfor %}
-
 
     <br/>
     <h3> Select on list</h3>

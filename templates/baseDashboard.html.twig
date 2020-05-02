@@ -18,6 +18,9 @@
               integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
               crossorigin="anonymous">
 
+        <!-- Favicons -->
+        <link href="{{ asset('img/favicon.png') }}" rel="icon">
+
         <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}" />
     {% endblock %}
 </head>
@@ -28,14 +31,13 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
             <h5 class="centered">Speed mailer</h5>
-            <li class="mt">
-                <a href="#">
-                    <i class="fa fa-dashboard"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
-            <!-- Ticket -->
             {% if is_granted('ROLE_ADMIN') %}
+                <li class="mt">
+                    <a href="{{ path('app_dashboard_admin') }}">
+                        <i class="fa fa-dashboard"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
                 <li>
                     <a class="sidebar-menu" href="{{ path('app_dashboard_admin_ticket') }}">
                         <i class="fa fa-envelope"></i>
@@ -49,6 +51,12 @@
                 </li>
             {% elseif is_granted('ROLE_USER') %}
                 <li>
+                <li class="mt">
+                    <a href="{{ path('app_dashboard_user') }}">
+                        <i class="fa fa-dashboard"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
                     <a class="sidebar-menu" href="{{ path('app_dashboard_user_ticket') }}">
                         <i class="fa fa-envelope"></i>
                         <span>Tickets </span>
@@ -61,9 +69,7 @@
                 </li>
 
             {% endif %}
-            <!-- end ticket -->
-
-            <li>
+                <li>
                     <a class="sidebar-menu" href="{{ path('lists') }}">
                         <i class="fa fa-envelope"></i>
                         <span>Liste </span>
@@ -71,7 +77,6 @@
                         </span>
                     </a>
                 </li>
-
                 <li>
                     <a class="sidebar-menu" href="{{ path('clean') }}">
                         <i class="fa fa-envelope"></i>
@@ -80,22 +85,24 @@
                         </span>
                     </a>
                 </li>
-
-
-            <li>
-                <a class="sidebar-menu" href="{{ path('home') }}">
-                    <i class="fa fa-envelope"></i>
-                    <span>Revenir au Site </span>
-                </a>
-            </li>
-            <li>
-                <a class="sidebar-menu" href="{{ path('app_logout') }}">
-                    <i class="fa fa-envelope"></i>
-                    <span>Logout </span>
-                </a>
-            </li>
-
-
+                <li>
+                    <a class="sidebar-menu" href="{{ path('app_order_list_dashboard') }}">
+                        <i class="fa fa-envelope"></i>
+                        <span>Mes commandes</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="sidebar-menu" href="{{ path('home') }}">
+                        <i class="fa fa-envelope"></i>
+                        <span>Revenir au Site </span>
+                    </a>
+                </li>
+                <li>
+                    <a class="sidebar-menu" href="{{ path('app_logout') }}">
+                        <i class="fa fa-envelope"></i>
+                        <span>Logout </span>
+                    </a>
+                </li>
         </ul>
         <!-- sidebar menu end-->
     </div>
@@ -103,7 +110,8 @@
 <!-- end nav -->
 <div class="curved-bg-div wow animated fadeIn" data-wow-delay="0.15s">
     <br/>
-    <h1> Bienvenu sur votre Dashboard {{ app.user.email }} </h1>
+    <br/>
+    <h5 class="text-right"> Bonjour {{ app.user.email }} </h5>
 </div>
 
 <br/>
@@ -111,6 +119,8 @@
 {% block body %}
     <!-- Template twig -->
 {% endblock %}
+<!-- blue bar -->
+<br/>
 <div class="p-3 mb-2 bg-info text-white center"></div>
 
 {% block javascripts %}

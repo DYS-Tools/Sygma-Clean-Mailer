@@ -23,12 +23,10 @@ class cleanController extends AbstractController
      */
     public function lists(Request $request, EntityManagerInterface $entityManager, upload $upload,extractListInformation $extract)
     {
-
         $ListRepo = $this->getDoctrine()->getRepository(ListMail::class);
         $lists = $ListRepo->findBy(['user' => $this->getUser()]);
         $form = $this->createForm(ListFormType::class);
         $form->handleRequest($request);
-
 
         if($form->isSubmitted() && $form->isValid()){
 
