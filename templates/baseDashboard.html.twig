@@ -35,8 +35,6 @@
                 </a>
             </li>
             <!-- Ticket -->
-
-
             {% if is_granted('ROLE_ADMIN') %}
                 <li>
                     <a class="sidebar-menu" href="{{ path('app_dashboard_admin_ticket') }}">
@@ -67,6 +65,12 @@
                 <a class="sidebar-menu" href="{{ path('home') }}">
                     <i class="fa fa-envelope"></i>
                     <span>Revenir au Site </span>
+                </a>
+            </li>
+            <li>
+                <a class="sidebar-menu" href="{{ path('app_logout') }}">
+                    <i class="fa fa-envelope"></i>
+                    <span>Logout </span>
                 </a>
             </li>
 

@@ -40,6 +40,7 @@
 
         {% if countTicketUserClose > 0  %}
             <h3> Ticket Résolu </h3>
+            <h5> Si votre demande n'est pas résolu, nous vous invitons à ouvrir un nouveau ticket. </h5>
             {% for ticketUserClose in ticketUserClose %}
 
                 <p> <strong>ouvert le : </strong>{{ ticketUserClose.createdAt|date('Y-m-d')}}<br/>
