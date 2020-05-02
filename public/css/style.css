@@ -231,19 +231,7 @@ hr{
 .blue-section-text{
     color: black;
 }
-/******* NAV-ONLY ( FOR NAV IN APPLICATION WITHOUT HEAD *******/
 
-.nav-only{
-    background-color: cornflowerblue;
-    padding: 1%;
-    border-bottom: 7px solid cornflowerblue;
-}
-.nav-only a{
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 600;
-    letter-spacing: 1px;
-
-}
 
 .application-page{
     background-color: cornflowerblue;

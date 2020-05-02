@@ -1,8 +1,8 @@
-{%  extends 'base-only-nav.html.twig' %}
+{% extends 'baseDashboard.html.twig' %}
 
 {% block body %}
 <div class="application-pageX">
-    <div class="padding">
+    <div class="container">
         
         <br/>
         <br/>
@@ -13,7 +13,7 @@
 
 
         <br/><br/><br/>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalImportList">Import CSV</button>
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalImportList">Import CSV</button>
         <br/><br/>
 
         <div class="modal fade" id="modalImportList" tabindex="-1" role="dialog" aria-hidden="true">
@@ -32,13 +32,13 @@
                             {{ form_widget(listForm) }}
                         <!--<button type="submit" class="btn btn-success pull-right">Ajouter</button>-->
 
-                            <button class="btn btn-primary">Import</button>
+                            <button class="btn btn-info">Import</button>
 
                     </div>
 
                         {{ form_end(listForm) }}
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
                     </div>
 
 
@@ -80,7 +80,7 @@
 
                 <td>
                     <a href="{{ path('ExportOnelist', { id : list.id}) }}">
-                        <button type="button" class="btn btn-success">Export CSV</button>
+                        <button type="button" class="btn btn-info">Export CSV</button>
                     </a>
                 </td>
             </tr>

@@ -1,12 +1,13 @@
-{%  extends 'base.html.twig' %}
+{% extends 'baseDashboard.html.twig' %}
 
 {% block body %}
 
-<div class="padding">
+<div class="container">
+    
     <div>
         {{ form_start(emailForm) }}
         {{ form_widget(emailForm) }}
-        <button type="submit" class="btn btn-success pull-right">Verifier</button>
+        <button type="submit" class="btn btn-info pull-right">Verifier</button>
         {{ form_end(emailForm) }}
         <br/><br/>
     </div>
@@ -24,7 +25,7 @@
     <p> choice your options</p>
     {{ form_start(listOptionForm) }}
     {{ form_widget(listOptionForm) }}
-    <button type="submit" class="btn btn-success pull-right">Select</button>
+    <button type="submit" class="btn btn-info pull-right">Select</button>
     {{ form_end(listOptionForm) }}
 
     <br/><br/><br/>
