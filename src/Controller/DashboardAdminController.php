@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Ticket;
 use App\Repository\ListMailRepository;
 use App\Repository\OrderRepository;
 use App\Repository\UserRepository;
@@ -24,10 +25,21 @@ class DashboardAdminController extends AbstractController
         $OrderNumber = $orderRepository->countAllOrder();
         $ListMailNumber = $listMailRepository->countAllListMail();
 
-        return $this->render('dashboard/dashboardAdmin.html.twig', [
+        return $this->render('dashboard/admin/dashboardAdmin.html.twig', [
             'ClientNumber' => $ClientNumber,
             'OrderNumber' => $OrderNumber,
             'ListMailNumber' => $ListMailNumber
+        ]);
+    }
+
+    /**
+     * @Route("/dashboard/admin/ticket", name="app_dashboard_admin_ticket")
+     */
+    public function ticket()
+    {
+        return $this->render('dashboard/admin/ticket.html.twig', [
+            'ticket' => $this->getDoctrine()->getRepository(Ticket::class)->findAllTicketOpen(),
+            'countTicketOpen' => $this->getDoctrine()->getRepository(Ticket::class)->countAllTicketOpen()
         ]);
     }
 }

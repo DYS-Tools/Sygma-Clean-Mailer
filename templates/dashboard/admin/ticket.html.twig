@@ -1,0 +1,22 @@
+{% extends 'baseDashboard.html.twig' %}
+
+{% block title %} Mon compte {% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="centered">  Ticket admin </h1>
+
+    <h2> Ticket ouvert par un membre </h2>
+
+    {% for ticket in ticket %}
+        {{ ticket.object}}
+        {{ ticket.content}}
+    {% endfor %}
+
+
+
+    <h4> Vous avez {{ countTicketOpen }} ticket(s) à résoudre. </h4>
+
+
+</div>
+{% endblock %}
