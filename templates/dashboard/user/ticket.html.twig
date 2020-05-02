@@ -1,0 +1,28 @@
+{% extends 'baseDashboard.html.twig' %}
+
+{% block title %} Mon compte {% endblock %}
+
+{% block body %}
+    <div class="container">
+            <h1 class="centered">  Ticket User </h1>
+
+        {% for message in app.flashes('Ticket') %}
+            <div class="alert alert-success" role="alert">
+                <strong>{{ message }}</strong>
+            </div>
+
+        {% endfor %}
+
+
+        <h2> Créer un nouveau ticket </h2>
+
+        <div class="row">
+            {{ form_start(form) }}
+
+            {{ form_widget(form) }}
+            <button type="submit" class="btn btn-success pull-right">Envoyer</button>
+            {{ form_end(form) }}
+        </div>
+
+    </div>
+{% endblock %}
