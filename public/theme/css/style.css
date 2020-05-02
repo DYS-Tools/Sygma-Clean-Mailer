@@ -34,7 +34,7 @@ html {
 
 #fh5co-hero-wrapper {
   height: 800px;
-  width: 100%;
+  width: 100vw;
   background: url("../img/banner-bg.jpg") no-repeat center;
   border-radius: 0 0 50% 50% / 4%;
 }
