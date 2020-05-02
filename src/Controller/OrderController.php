@@ -27,7 +27,6 @@ class OrderController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/order", name="order")
      */

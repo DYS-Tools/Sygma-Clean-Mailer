@@ -37,8 +37,11 @@ html {
   width: 100vw;
   background: url("../img/banner-bg.jpg") no-repeat center;
   border-radius: 0 0 50% 50% / 4%;
-}
 
+}
+#blue {
+  background-color: rgb(0,170,221);
+}
 .main-navbar-nav .navbar-brand {
   font-size: 38px;
   letter-spacing: 4px;

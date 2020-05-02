@@ -27,6 +27,15 @@ class DashboardUserController extends AbstractController
     }
 
     /**
+     * @Route("/dashboard/user/order", name="app_order_list_dashboard")
+     */
+    public function orderDashboard()
+    {
+        return $this->render('dashboard/user/orderList.html.twig', [
+        ]);
+    }
+
+    /**
      * @Route("/dashboard/user/ticket", name="app_dashboard_user_ticket")
      */
     public function createTicket(Request $request)

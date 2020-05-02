@@ -45,21 +45,12 @@ class extractListInformation
         $file = '../Data/'.$filename;
         $file = fopen($file, 'r');
         $data = stream_get_contents($file, -1, 0);
-
-        //$code = fgetcsv($file, 0, ',' , '"');
-
         $data = str_replace(',', ' ', $data);
-
-        //$data = utf8_decode($data);
-
         preg_match_all('#\s+[A-Za-z0-9_-]{2,}@[a-z.]{5,}\s+#', $data, $result);
 
-        //dd($result);
         $i = 0 ;
 
         foreach ($result[0] as $adresse){
-            //dd($adresse[$i]);
-
             if(!$this->entityManager->getRepository(Email::class)->findBy(['adresse'=>$adresse])){
                 $email = new Email();
                 $email->setAdresse(trim(strtolower($adresse)));
@@ -70,30 +61,14 @@ class extractListInformation
             }
 
         }
-
-
         return $i;
     }
-
-
-    public function DataCSVEncode($filename, $list){
-
-        // Here transform Data for Output
-
-
-        // encoding contents in CSV format
-        //$serializer->encode($data, 'csv');
-
-    }
-
-
 
     public function convertToArray($filename, $delimiter = ',', $enclosure = '"')
     {
         if(!file_exists($filename) || !is_readable($filename)) {
             return FALSE;
         }
-
         $header = NULL;
         $data = array();
 
@@ -109,10 +84,6 @@ class extractListInformation
             }
             fclose($handle);
         }
-
         return $data;
     }
-
-
-
 }
