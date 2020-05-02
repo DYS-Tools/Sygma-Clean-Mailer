@@ -28,7 +28,27 @@ class TicketRepository extends ServiceEntityRepository
         return (int) $qb->getQuery()->getSingleScalarResult();
     }
 
+    // for user
+    public function countTicketOpenUser($user)
+    {
+        $qb = $this->createQueryBuilder('e')
+            ->where('e.state = 1 and e.user = :user')
+            ->setParameter('user', $user);
+        $qb ->select($qb->expr()->count('e'));
+        return (int) $qb->getQuery()->getSingleScalarResult();
+    }
 
+    // for user
+    public function countTicketCloseUser($user)
+    {
+        $qb = $this->createQueryBuilder('e')
+            ->where('e.state = 0 and e.user = :user')
+            ->setParameter('user', $user);
+        $qb ->select($qb->expr()->count('e'));
+        return (int) $qb->getQuery()->getSingleScalarResult();
+    }
+
+    // for admin
     public function findAllTicketOpen()
     {
         $qb = $this->createQueryBuilder('p')
@@ -37,13 +57,27 @@ class TicketRepository extends ServiceEntityRepository
         return $query->execute();
     }
 
-    public function findAllTicketClose()
+    // for user
+    public function findTicketOpenUser($user)
     {
         $qb = $this->createQueryBuilder('p')
-            ->where('p.state = 0');
+            ->where('p.state = 1 and p.user = :user')
+            ->setParameter('user', $user);
         $query = $qb->getQuery();
         return $query->execute();
     }
+
+    // for user
+    public function findTicketCloseUser($user)
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->where('p.state = 0 and p.user = :user')
+            ->setParameter('user', $user);
+        $query = $qb->getQuery();
+        return $query->execute();
+    }
+
+
     // /**
     //  * @return Ticket[] Returns an array of Ticket objects
     //  */

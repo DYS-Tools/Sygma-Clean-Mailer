@@ -42,6 +42,11 @@ class Ticket
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $ResponseAdmin;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +108,18 @@ class Ticket
     public function setUser(?user $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getResponseAdmin(): ?string
+    {
+        return $this->ResponseAdmin;
+    }
+
+    public function setResponseAdmin(?string $ResponseAdmin): self
+    {
+        $this->ResponseAdmin = $ResponseAdmin;
 
         return $this;
     }
