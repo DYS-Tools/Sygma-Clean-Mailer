@@ -34,13 +34,27 @@
                     <span>Dashboard</span>
                 </a>
             </li>
-            <li>
-                <a class="sidebar-menu" href="#">
-                    <i class="fa fa-envelope"></i>
-                    <span>Mail </span>
-                    <span class="label label-theme pull-right mail-info">3</span>
-                </a>
-            </li>
+            <!-- Ticket -->
+
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <li>
+                    <a class="sidebar-menu" href="{{ path('app_dashboard_admin_ticket') }}">
+                        <i class="fa fa-envelope"></i>
+                        <span>Tickets </span>
+                        <span class="label label-theme pull-right mail-info">3</span>
+                    </a>
+                </li>
+            {% elseif is_granted('ROLE_USER') %}
+                <li>
+                    <a class="sidebar-menu" href="{{ path('app_dashboard_user_ticket') }}">
+                        <i class="fa fa-envelope"></i>
+                        <span>Tickets </span>
+                        <span class="label label-theme pull-right mail-info">3</span>
+                    </a>
+                </li>
+            {% endif %}
+            <!-- end ticket -->
             <li>
                 <a class="sidebar-menu" href="{{ path('home') }}">
                     <i class="fa fa-envelope"></i>
@@ -48,27 +62,30 @@
                 </a>
             </li>
 
+
         </ul>
         <!-- sidebar menu end-->
     </div>
 </aside>
 <!-- end nav -->
-
-<div class="p-3 mb-2 bg-info text-white center">
+<div class="curved-bg-div wow animated fadeIn" data-wow-delay="0.15s">
+    <br/>
     <h1> Bienvenu sur votre Dashboard {{ app.user.email }} </h1>
 </div>
+
 <br/>
 <br/>
 {% block body %}
     <!-- Template twig -->
 {% endblock %}
-
-
+<div class="p-3 mb-2 bg-info text-white center"></div>
 
 {% block javascripts %}
 
 {% endblock %}
 
 
+
 </body>
+
 </html>
