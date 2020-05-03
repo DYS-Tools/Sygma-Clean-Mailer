@@ -3,6 +3,7 @@
 namespace App\Security;
 
 use App\Entity\User;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +20,8 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class AppAuthenticator extends AbstractFormLoginAuthenticator implements PasswordAuthenticatedInterface
 {
@@ -30,13 +33,16 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
     private $urlGenerator;
     private $csrfTokenManager;
     private $passwordEncoder;
+    private $userRepository;
 
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
+
+    public function __construct(UserRepository $userRepository, EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
+        $this->userRepository = $userRepository;
     }
 
     public function supports(Request $request)
@@ -93,11 +99,27 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
-            return new RedirectResponse($targetPath);
+
+            $email =$request->request->get('email');
+            
+            $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
+            $user = $user->getRoles();
+            
+            //return new RedirectResponse($targetPath);
         }
 
-        dump($this->user->getRoles());
-        return new RedirectResponse($this->urlGenerator->generate('home'));
+        $email =$request->request->get('email');
+            
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
+        $user = $user->getRoles();
+        if($user[0] == "ROLE_ADMIN"){
+            return new RedirectResponse($this->urlGenerator->generate('app_dashboard_admin'));
+        }
+        else{
+            return new RedirectResponse($this->urlGenerator->generate('app_dashboard_user'));
+        }
+
+        //return new RedirectResponse($this->urlGenerator->generate('home'));
 
     }
 
