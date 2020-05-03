@@ -45,34 +45,30 @@ class payment
 
 
 
-    public function makePayment($number)
+    public function makePayment($price,$article)
     {
         //dump($this->secretStripeKeyTest);
         Stripe::setApiKey($this->secretStripeKeyTest);
-        dump($number);
+        
+        //Convert euro in centim
+        $price = $price * 100 ;
 
-        /*
-        $token  = $_POST['stripeToken'];
-        $email  = $_POST['stripeEmail'];
+        //TODO: Create success and cancel URL and redirect payment
+        $session = \Stripe\Checkout\Session::create([
+            'payment_method_types' => ['card'],
+            'line_items' => [[
+              'name' => $article,
+              'description' => 'Comfortable cotton t-shirt',
+              'images' => ['https://example.com/t-shirt.png'],
+              'amount' => $price,
+              'currency' => 'eur',
+              'quantity' => 1,
+            ]],
+            'success_url' => 'https://SpeedMailer/sucessURL',
+            'cancel_url' => 'https://SpeedMailer/cancelURL',
+          ]);
 
-        $customer = Stripe::create(array(
-            'email' => $email,
-            'source'  => $token
-        ));
-
-        $charge = Stripe::create(array(
-            'customer' => $customer->id,
-            'amount'   => $number,
-            'currency' => 'eur',
-            'description' => 'Discover France Guide by Erasmus of Paris',
-            'receipt_email' => $email
-        ));
-
-        echo '<h1>Payment accepted!</h1>';
-        */
-
-
-        return true;
+        return $session;
 
     }
 

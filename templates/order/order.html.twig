@@ -6,15 +6,21 @@
 
     <div class="padding">
           </br></br>
-        <a id="paybutton" href="{{path('order') }}"> Test Bouton paiement( ROUTE order )</a></br></br/>
+          <h2> Votre commande et vos avantages :<br/><br/><br/>
+          <ul>
+            <li>Credit pour nettoyer des mailing liste</li>
+            <li>Accès au support</li>
+            <li>Accès au dashboard de l'application</li>
+          </ul>
+        <a id="paybutton" href="{{path('order', { 'offer': offer }  ) }}" class="bottom"><p class="cart">
+        <button class="btn btn-info">Payer l'offre {{offer}}</button></p>
+        </a>
         <br/>
           <br/>
         <hr>
     </div>
 
 {% endblock %}
-
-
 
 {% block javascripts %}
 

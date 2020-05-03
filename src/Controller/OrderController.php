@@ -24,35 +24,33 @@ class OrderController extends AbstractController
     public function offer(payment $payment)
     {
         return $this->render('order/offer.html.twig', [
+            'stripe_public_key' => $payment->getStripePublicCredentials(),
         ]);
     }
 
     /**
-     * @Route("/order", name="order")
+     * @Route("/order/{offer}", name="order")
      */
-    public function BuyApplicationWithOrder(payment $payment, Request $request)
+    public function BuyApplicationWithOrder(payment $payment, Request $request, $offer)
     {
-    
+
         Stripe::setApiKey($payment->getStripeSecretCredentials());
         
-            //TODO: Create success and cancel URL and redirect payment
-            $session = \Stripe\Checkout\Session::create([
-                'payment_method_types' => ['card'],
-                'line_items' => [[
-                  'name' => 'T-shirt',
-                  'description' => 'Comfortable cotton t-shirt',
-                  'images' => ['https://example.com/t-shirt.png'],
-                  'amount' => 500,
-                  'currency' => 'eur',
-                  'quantity' => 1,
-                ]],
-                'success_url' => 'https://SpeedMailer/sucessURL',
-                'cancel_url' => 'https://SpeedMailer/cancelURL',
-              ]);
+            if($offer == 'Simple'){
+                $session = $payment->makePayment(5,'Offre Simple');
+            }
+            if($offer == 'Pro'){
+                $session = $payment->makePayment(15,'Offre Pro');
+            }
+            if($offer == 'Entreprise'){
+                $session = $payment->makePayment(30,'Offre Entreprise');
+            }
+            
         
         return $this->render('order/order.html.twig', [
             'stripe_public_key' => $payment->getStripePublicCredentials(),
-            'CHECKOUT_SESSION_ID' => $session['id']
+            'CHECKOUT_SESSION_ID' => $session['id'],
+            'offer' => $offer
         ]);
     }
 

@@ -3,11 +3,7 @@
 {% block title %}Our Offers{% endblock %}
 
 {% block body %}
+<br/><br/><br/>
     {{ include('pricing-table.html.twig') }}
     <br/><br/><br/>
-    <div class="row">
-		<div class="col-lg-2 offset-lg-5">
-            <a href="{{ path('order') }}"><button type="button" class="btn btn-success">Ou payer 5 euros</button></a><br/>
-        </div>
-    </div>
 {% endblock %}
