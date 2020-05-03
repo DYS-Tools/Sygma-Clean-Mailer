@@ -26,6 +26,7 @@ class UserFixtures extends Fixture
         $yohann->setEmail('yohanndurand76@gmail.com');
         $yohann->setPassword($this->passwordEncoder->encodePassword($yohann,'dev'));
         $yohann->setRoles(["ROLE_ADMIN"]);
+        $yohann->setMailCredit(1000);
         $manager->persist($yohann);
 
         // Create Yohann Admin
@@ -33,6 +34,7 @@ class UserFixtures extends Fixture
         $sacha->setEmail('sacha6623@gmail.com');
         $sacha->setPassword($this->passwordEncoder->encodePassword($sacha,'000000'));
         $sacha->setRoles(["ROLE_ADMIN"]);
+        $sacha->setMailCredit(1000);
         $manager->persist($sacha);
 
         // Create User
@@ -40,6 +42,7 @@ class UserFixtures extends Fixture
         $user->setEmail('user@gmail.com');
         $user->setPassword($this->passwordEncoder->encodePassword($user,'dev'));
         $user->setRoles(["ROLE_USER"]);
+        $user->setMailCredit(100);
         $manager->persist($user);
 
         $manager->flush();
