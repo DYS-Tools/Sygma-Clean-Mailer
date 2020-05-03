@@ -10,71 +10,51 @@
         <br/>
 
         <div class="container">
-            <section class="row">
-                <div class="stats col-xs-4 col-sm-3 col-md-3">
-                   <h2>Nombre de compte créer <br/>
-                       <strong>  {{ ClientNumber }} </strong>
-                   </h2>
+
+            <div class="row mt">
+                <!-- SERVER STATUS PANELS -->
+                <div class="col-md-4 col-sm-4 mb">
+                    <div class="grey-panel pn donut-chart">
+                        <div class="grey-header">
+                            <h5>Client</h5>
+                        </div>
+                        <div class="chart mt">
+                            <div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="4" data-data="[200,135,667,333,526,996,564,123,890,464,655]"></div>
+                        </div>
+                        <p class="mt"><b>{{ ClientNumber }}</b><br/>Client table</p>
+                    </div>
+                    <!-- /grey-panel -->
                 </div>
-
-                <div class="stats col-xs-4 col-sm-3 col-md-3">
-                    <h2>Nombre de commande <br/>
-                        <strong>  {{ OrderNumber }}</strong>
-                    </h2>
+                <!-- /col-md-4-->
+                <div class="col-md-4 col-sm-4 mb">
+                    <div class="darkblue-panel pn">
+                        <div class="darkblue-header">
+                            <h5>Commande</h5>
+                    </div>
+                    <div class="chart mt">
+                        <div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="4" data-data="[200,135,667,333,526,996,564,123,890,464,655]"></div>
+                    </div>
+                        <p class="mt"><b>{{ OrderNumber }}</b><br/>Order table</p>
+                    </div>
+                    <!--  /darkblue panel -->
                 </div>
-
-                <div class="stats col-xs-4 col-sm-3 col-md-3">
-                    <h2>Nombre de liste email créer <br/>
-                        <strong>  {{ ListMailNumber }}</strong>
-                    </h2>
+                <!-- /col-md-4 -->
+                <div class="col-md-4 col-sm-4 mb">
+                    <!-- REVENUE PANEL -->
+                    <div class="green-panel pn">
+                        <div class="green-header">
+                            <h5>Liste Importer</h5>
+                        </div>
+                        <div class="chart mt">
+                            <div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="4" data-data="[200,135,667,333,526,996,564,123,890,464,655]"></div>
+                        </div>
+                        <p class="mt"><b>{{ ListMailNumber }}</b><br/>List table</p>
+                    </div>
                 </div>
-
-                <div class="stats col-xs-4 col-sm-3 col-md-3">
-                    <h2>Nombre d'abonement' <br/>
-                        <strong>  XX </strong>
-                    </h2>
-                </div>
-            </section>
-        </div>
-
-
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-
-
-        <div class="container">
-            <section class="row">
-                <div class="stats col-xs-4 col-sm-3 col-md-3">
-                    <h2>Satisfaction client ( 1 et 5 étoiles ) <br/>
-                        <strong>  XX </strong>
-                    </h2>
-                </div>
-
-                <div class="stats col-xs-4 col-sm-3 col-md-3">
-                    <h2>Durée de vie d'un client ( LTV )  <br/>
-                        <strong>  XXX </strong>
-                    </h2>
-                </div>
-
-                <div class="stats col-xs-4 col-sm-3 col-md-3">
-                    <h2>Cout d'acquisition du client ( CAC )  <br/>
-                        <strong>  XX </strong>
-                    </h2>
-                </div>
-
-                <div class="stats col-xs-4 col-sm-3 col-md-3">
-                    <h2>Chiffre d'affaire <br/>
-                        <strong>  XX </strong>
-                    </h2>
-                </div>
-            </section>
-        </div>
+                <!-- /col-md-4 -->
+            </div>
     </div>
-
-
+    </div>
+    </div>
 
 {% endblock %}
