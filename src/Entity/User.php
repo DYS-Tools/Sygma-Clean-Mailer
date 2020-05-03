@@ -47,6 +47,11 @@ class User implements UserInterface
      */
     private $tickets;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $mailCredit = 100;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
@@ -189,6 +194,18 @@ class User implements UserInterface
                 $ticket->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMailCredit(): ?int
+    {
+        return $this->mailCredit;
+    }
+
+    public function setMailCredit(int $mailCredit): self
+    {
+        $this->mailCredit = $mailCredit;
 
         return $this;
     }

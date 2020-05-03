@@ -121,6 +121,20 @@
                     </a>
                 </li>
         </ul>
+        <br/><br/>
+        <ul>
+        {% if is_granted('ROLE_ADMIN') %}
+        
+            <h5><span class="badge badge-warning">ADMIN MODE</span></h5>
+            <h6> Email restant: {{app.user.mailCredit}} </h6>
+        
+        {% elseif is_granted('ROLE_USER') %}
+        
+        <h5><span class="badge badge-warning">USER</span></h5>
+        
+        {% endif %}
+        </ul>
+        
         <!-- sidebar menu end-->
     </div>
 </aside>
