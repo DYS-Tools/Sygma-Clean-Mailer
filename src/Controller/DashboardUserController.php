@@ -84,8 +84,7 @@ class DashboardUserController extends AbstractController
                 $em->flush();
 
                 $this->addFlash('Ticket','Votre demande a bien été prise en compte.');
-
-                
+  
             }
             return $this->render('dashboard/user/ticket.html.twig', [
                 'form' => $form->createView(),
