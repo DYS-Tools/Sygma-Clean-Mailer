@@ -11,8 +11,8 @@ security:
                 class: App\Entity\User
                 property: email
 
-    role_hierarchy:
-
+    role_hierarchy: [ROLE_ADMIN, ROLE_USER, ROLE_ABO]
+    # in controller : $hasAccess = in_array('ROLE_ADMIN', $user->getRoles());
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
