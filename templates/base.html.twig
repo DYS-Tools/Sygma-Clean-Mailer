@@ -58,8 +58,6 @@
     <body>
 
 <div id="page-wrap">
-
-
 	<!-- ==========================================================================================================
 													   HERO
 		 ========================================================================================================== -->
@@ -99,9 +97,7 @@
                                     <a class="nav-link" href="{{ path('app_register') }}">Inscription</a>
                                 </li>
                         {% endif %}
-
                     </ul>
-
                 </div>
             </nav>
 
@@ -112,19 +108,12 @@
                 <button class="btn btn-md features-btn-first animated fadeInLeft wow" data-wow-delay="0.95s" onclick="$('#fh5co-features').goTo();return false;">Features</button>
                 <!--<img class="fh5co-hero-smartphone animated fadeInRight wow" data-wow-delay="1s" src="img/phone-image.png" alt="Smartphone">-->
             </div>
-
-
         </div> <!-- first section wrapper -->
     </div>
-
         {% block body %}
             <!-- Template twig -->
         {% endblock %}
         </div> <!-- end of id="page-wrap"-->
-
-
-
-    
    <!-- ==========================================================================================================
                                                SECTION 7 - SUB FOOTER
     ========================================================================================================== -->
@@ -139,9 +128,9 @@
 				<div class="column-2-3">
 					<nav class="footer-nav">
 						<ul>
-							<a href="#" onclick="$('#fh5co-hero-wrapper').goTo();return false;"><li>A propos</li></a>
-							<a href="#" onclick="$('#fh5co-features').goTo();return false;"><li>Mentions Légales</li></a>
-							<a href="#" onclick="$('#fh5co-reviews').goTo();return false;"><li>FAQ</li></a>
+							<a href="#" onclick="$('#fh5co-hero-wrapper').goTo();return false;"><li>Avis client</li></a>
+							<a href="{{ path('app_legal') }}"><li>Mentions Légales</li></a>
+							<a href="{{ path('app_faq') }}"><li>FAQ</li></a>
 							<a href="#" onclick="$('#fh5co-download').goTo();return false;"><li class="active">Tarifs </li></a>
 						</ul>
 					</nav>
@@ -177,6 +166,5 @@
             <script src="theme/js/wow.min.js"></script>
             <script src="theme/js/main.js"></script>
         {% endblock %}
-
     </body>
 </html>

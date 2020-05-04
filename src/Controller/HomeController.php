@@ -17,4 +17,22 @@ class HomeController extends AbstractController
             'stripe_public_key' => $payment->getStripePublicCredentials(),
         ]);
     }
+
+    /**
+     * @Route("/faq", name="app_faq")
+     */
+    public function faq()
+    {
+        return $this->render('faq.html.twig', [
+        ]);
+    }
+
+    /**
+     * @Route("/legal", name="app_legal")
+     */
+    public function legal()
+    {
+        return $this->render('legal.html.twig', [
+        ]);
+    }
 }
