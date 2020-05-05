@@ -18,7 +18,7 @@
                         <div class="chart mt">
                             <div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="4" data-data="[200,135,667,333,526,996,564,123,890,464,655]"></div>
                         </div>
-                        <p class="mt"><b>XX </b><br/>Commande</p>
+                        <p class="mt"><b>{{  orderCount }} </b><br/>Commande Effectué</p>
                     </div>
                     <!-- /grey-panel -->
                 </div>
@@ -36,28 +36,34 @@
                     <!--  /darkblue panel -->
                 </div>
 
-            {#  {{ order.amount}}{{ order.status}}  #}
              </div>
         </div>
-        <hr/>
-        <table class="table table-striped table-dark">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Commande</th>
-                <th scope="col">Montant</th>
-                <th scope="col">Date</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>500 email</td>
-                <td> 5 euros</td>
-                <td>Janvier</td>
-            </tr>
-            </tbody>
-        </table>
+
+        {% if orderCount > 0  %}
+            <hr/>
+            <h1> Details Commande </h1>
+            <hr/>
+            <table class="table table-striped table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Montant</th>
+                    <th scope="col">Date</th>
+                </tr>
+                </thead>
+                {% for order in order %}
+                <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>{{  order.status }}</td>
+                    <td>{{  order.amount }} euros</td>
+                    <td>{{ order.createdAt|date('Y-m-d')}}</td>
+                </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        {% endif %}
 
     </div>
 {% endblock %}

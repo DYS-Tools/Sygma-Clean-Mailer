@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use App\Entity\Order;
 use App\Entity\Ticket;
 use App\Entity\User;
 use App\Form\TicketType;
@@ -43,17 +44,14 @@ class DashboardUserController extends AbstractController
      */
     public function orderDashboard()
     {
-        $user = $this->getUser();
-        if($user->getMailCredit() >= 0){
-            return $this->render('dashboard/user/orderList.html.twig', [
-                ]);
-        }
-        else{
-            return $this->render('security/no-access.html.twig', [
-                ]);
-        }
 
-        
+        // get current user
+        $user = $this->getUser() ;
+
+        return $this->render('dashboard/user/orderList.html.twig', [
+            'orderCount' => $this->getDoctrine()->getRepository(Order::class)->countOrderUser($user),
+            'order' => $this->getDoctrine()->getRepository(Order::class)->findOrderUser($user),
+        ]);
     }
 
     /**

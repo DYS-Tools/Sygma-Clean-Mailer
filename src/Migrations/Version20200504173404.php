@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200504013620 extends AbstractMigration
+final class Version20200504173404 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,8 +22,7 @@ final class Version20200504013620 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP INDEX UNIQ_E7927C74C35F0816 ON email');
-        $this->addSql('ALTER TABLE user ADD mail_credit INT NOT NULL');
+        $this->addSql('ALTER TABLE `order` ADD created_at DATETIME NOT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -31,7 +30,6 @@ final class Version20200504013620 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_E7927C74C35F0816 ON email (adresse)');
-        $this->addSql('ALTER TABLE user DROP mail_credit');
+        $this->addSql('ALTER TABLE `order` DROP created_at');
     }
 }
