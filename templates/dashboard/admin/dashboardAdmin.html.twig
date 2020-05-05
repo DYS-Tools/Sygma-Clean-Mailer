@@ -53,6 +53,32 @@
                 </div>
                 <!-- /col-md-4 -->
             </div>
+
+            {% if OrderNumber > 0  %}
+                <hr/>
+                <h1> Details des commande effectué par les clients </h1>
+                <hr/>
+                <table class="table table-striped table-dark">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Montant</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                    </thead>
+                    {% for Order in Order %}
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>{{  Order.status }}</td>
+                            <td>{{  Order.amount }} euros</td>
+                            <td>{{ Order.createdAt|date('Y-m-d')}}</td>
+                        </tr>
+                        </tbody>
+                    {% endfor %}
+                </table>
+            {% endif %}
     </div>
     </div>
     </div>

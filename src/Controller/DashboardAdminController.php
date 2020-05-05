@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Order;
 use App\Entity\Ticket;
 use App\Form\TicketResponseType;
 use App\Repository\ListMailRepository;
@@ -30,7 +31,8 @@ class DashboardAdminController extends AbstractController
         return $this->render('dashboard/admin/dashboardAdmin.html.twig', [
             'ClientNumber' => $ClientNumber,
             'OrderNumber' => $OrderNumber,
-            'ListMailNumber' => $ListMailNumber
+            'ListMailNumber' => $ListMailNumber,
+            'Order' => $this->getDoctrine()->getRepository(Order::class)->findAllOrderAdmin()
         ]);
     }
 

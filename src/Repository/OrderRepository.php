@@ -25,6 +25,46 @@ class OrderRepository extends ServiceEntityRepository
         $qb ->select($qb->expr()->count('e'));
         return (int) $qb->getQuery()->getSingleScalarResult();
     }
+
+    // for user
+    public function countOrderUser($user)
+    {
+        $qb = $this->createQueryBuilder('e')
+            ->where('e.user = :user')
+            ->setParameter('user', $user);
+        $qb ->select($qb->expr()->count('e'));
+        return (int) $qb->getQuery()->getSingleScalarResult();
+    }
+
+    // for user
+    public function findOrderUser($user)
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->where('p.user = :user')
+            ->setParameter('user', $user);
+        $query = $qb->getQuery();
+        return $query->execute();
+    }
+
+    // for user
+    public function findAllOrderAdmin()
+    {
+        $qb = $this->createQueryBuilder('p');
+
+        $query = $qb->getQuery();
+        return $query->execute();
+    }
+
+
+
+
+
+
+
+
+
+
+
     // /**
     //  * @return Order[] Returns an array of Order objects
     //  */

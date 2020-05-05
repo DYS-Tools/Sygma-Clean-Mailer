@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use App\Entity\Order;
 use App\Entity\Ticket;
 use App\Form\TicketType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -31,7 +32,12 @@ class DashboardUserController extends AbstractController
      */
     public function orderDashboard()
     {
+        // get current user
+        $user = $this->getUser() ;
+
         return $this->render('dashboard/user/orderList.html.twig', [
+            'orderCount' => $this->getDoctrine()->getRepository(Order::class)->countOrderUser($user),
+            'order' => $this->getDoctrine()->getRepository(Order::class)->findOrderUser($user),
         ]);
     }
 
