@@ -60,7 +60,7 @@ class cleanController extends AbstractController
     /**
      * @Route("/clean", name="clean")
      */
-    public function clean(Request $request, clean $clean)
+    public function clean(Request $request, clean $clean, EntityManagerInterface $entityManager)
     {
         $form = $this->createForm(EmailFormType::class);
         $form->handleRequest($request);
@@ -76,7 +76,12 @@ class cleanController extends AbstractController
             $list = $formList['listSelect']->getData();
             $severalMode = $formList['severe']->getData();
 
+            $user = $this->getUser();
             $deletemailNumber = $clean->CleanMailingList($list,$severalMode);
+
+            $user->setMailCredit($user->getMailCredit() - $deletemailNumber);
+            $entityManager->persist($user);
+            $entityManager->flush();
             $this->addFlash('info', $deletemailNumber .' contact has deleted');
 
         }
