@@ -27,15 +27,8 @@ class DashboardUserController extends AbstractController
      */
     public function index()
     {
-        $user = $this->getUser();
-        if($user->getMailCredit() >= 0){
             return $this->render('dashboard/user/dashboardUser.html.twig', [
                 ]);
-        }
-        else{
-            return $this->render('security/no-access.html.twig', [
-                ]);
-        }
         
     }
 
@@ -60,7 +53,6 @@ class DashboardUserController extends AbstractController
     public function createTicket(Request $request)
     {
         $user = $this->getUser();
-        if($user->getMailCredit() >= 0){
 
             $ticket = new Ticket();
             $form = $this->createForm(TicketType::class, $ticket);
@@ -82,24 +74,17 @@ class DashboardUserController extends AbstractController
                 $em->flush();
 
                 $this->addFlash('Ticket','Votre demande a bien été prise en compte.');
-  
-            }
-            return $this->render('dashboard/user/ticket.html.twig', [
-                'form' => $form->createView(),
-                'ticketUserOpen' => $this->getDoctrine()->getRepository(Ticket::class)->findTicketOpenUser($user),
-                'ticketUserClose' => $this->getDoctrine()->getRepository(Ticket::class)->findTicketCloseUser($user),
-                'countTicketUserOpen' => $this->getDoctrine()->getRepository(Ticket::class)->countTicketOpenUser($user),
-                'countTicketUserClose' => $this->getDoctrine()->getRepository(Ticket::class)->countTicketCloseUser($user),
-            ]);
-        }
-        else{
-            return $this->render('security/no-access.html.twig', [
-                ]);
+
+            
         }
 
-        
-        
-
+        return $this->render('dashboard/user/ticket.html.twig', [
+            'form' => $form->createView(),
+            'ticketUserOpen' => $this->getDoctrine()->getRepository(Ticket::class)->findTicketOpenUser($user),
+            'ticketUserClose' => $this->getDoctrine()->getRepository(Ticket::class)->findTicketCloseUser($user),
+            'countTicketUserOpen' => $this->getDoctrine()->getRepository(Ticket::class)->countTicketOpenUser($user),
+            'countTicketUserClose' => $this->getDoctrine()->getRepository(Ticket::class)->countTicketCloseUser($user),
+        ]);
         
     }
 }

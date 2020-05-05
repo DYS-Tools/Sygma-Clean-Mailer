@@ -86,6 +86,8 @@
                 </li>
 
             {% endif %}
+
+                {% if app.user.mailCredit >= 0  %}
                 <li>
                     <a class="sidebar-menu" href="{{ path('lists') }}">
                         <i class="fa fa-envelope"></i>
@@ -94,6 +96,9 @@
                         </span>
                     </a>
                 </li>
+                {% endif %}
+
+                {% if app.user.mailCredit >= 0  %}
                 <li>
                     <a class="sidebar-menu" href="{{ path('clean') }}">
                         <i class="fa fa-envelope"></i>
@@ -102,6 +107,8 @@
                         </span>
                     </a>
                 </li>
+                {% endif %}
+
                 <li>
                     <a class="sidebar-menu" href="{{ path('app_order_list_dashboard') }}">
                         <i class="fa fa-envelope"></i>
@@ -120,6 +127,19 @@
                         <span>Logout </span>
                     </a>
                 </li>
+
+                {% if app.user.mailCredit <= 0  %}
+                <li>
+                    <a class="sidebar-menu" href="{{ path('offer') }}">
+                        <i class="fa fa-envelope"></i>
+                        <span>Obtenir un acces complet </span>
+                        <span class="label label-theme pull-right mail-info">
+                        </span>
+                    </a>
+                </li>
+                {% endif %}
+
+
         </ul>
         <br/><br/>
         <ul>
@@ -130,8 +150,15 @@
         
         {% elseif is_granted('ROLE_USER') %}
         
-            <h5><span class="badge badge-warning">USER</span></h5>
-            <h6> Email restant: {{app.user.mailCredit}} </h6>
+            {% if app.user.mailCredit >= 0  %}
+                <h5><span class="badge badge-warning">USER</span></h5>
+                <h6> Email restant: {{app.user.mailCredit}} </h6>
+            {% else %}
+                <h5><span class="badge badge-warning">ACCES LIMITE</span></h5>
+
+
+            {% endif %}
+            
         
         {% endif %}
         </ul>
