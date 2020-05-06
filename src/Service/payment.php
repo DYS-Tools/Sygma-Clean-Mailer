@@ -10,6 +10,7 @@ namespace App\Service;
 
 
 use App\Entity\Email;
+use App\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Serializer\Serializer;
@@ -24,13 +25,15 @@ class payment
     private $entityManager;
     private $secretStripeKeyTest;
     private $publicStripeKeyTest;
+    private $mailer;
 
 
-    public function __construct(EntityManagerInterface $entityManager, $secretStripeKeyTest, $publicStripeKeyTest)
+    public function __construct(EntityManagerInterface $entityManager, $secretStripeKeyTest, $publicStripeKeyTest, \Swift_Mailer $mailer)
     {
         $this->entityManager = $entityManager;
         $this->secretStripeKeyTest = $secretStripeKeyTest;
         $this->publicStripeKeyTest = $publicStripeKeyTest;
+        $this->mailer = $mailer;
     }
 
     public function getStripeSecretCredentials(){
@@ -43,7 +46,21 @@ class payment
         return $this->publicStripeKeyTest;
     }
 
-
+    public function sendMailAfterOrder($order,$user){
+        
+        $message = (new \Swift_Message('Votre commande SpeedMailer'))
+                ->setFrom('sacha6623@gmail.com')
+                ->setTo($user->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        'emails/order.html.twig',
+                        ['order' => $order,
+                         'user' => $user ])
+                    , 'text/html'
+                )
+            ;
+            $this->mailer->send($message);
+    }
 
     public function makePayment($price,$article)
     {

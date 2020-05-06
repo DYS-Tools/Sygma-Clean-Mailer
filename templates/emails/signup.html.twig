@@ -1,0 +1,6 @@
+{# templates/emails/signup.html.twig #}
+
+<h3>Hello !</h3>
+
+Bonjour {{ name  }}! Vous êtes désormais enregistré sur la plateforme.
+<a href="{{ url('activate_account', { token: user.token }) }}"> Activez votre compte ici ! </a>

@@ -149,13 +149,17 @@
             <h6> Email restant: {{app.user.mailCredit}} </h6>
         
         {% elseif is_granted('ROLE_USER') %}
-        
             {% if app.user.mailCredit >= 0  %}
-                <h5><span class="badge badge-warning">USER</span></h5>
+            
+                {% if app.user.orders|length  > 0 %}
+                    <h5><span class="badge badge-warning">PRENIUM</span></h5>
+                    <h6> Email restant: {{app.user.mailCredit}} </h6>
+                {% else %}
+                <h5><span class="badge badge-warning">FREE VERSION</span></h5>
                 <h6> Email restant: {{app.user.mailCredit}} </h6>
+                {% endif %}
             {% else %}
                 <h5><span class="badge badge-warning">ACCES LIMITE</span></h5>
-
 
             {% endif %}
             

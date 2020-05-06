@@ -16,7 +16,7 @@
                 </div>
             {% endif %}
 
-            <h1 class="h3 mb-3 font-weight-normal">Veuillez vous connecté</h1>
+            <h1 class="h3 mb-3 font-weight-normal">Veuillez vous connecter</h1>
             <label for="inputEmail">Email</label>
             <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
             <label for="inputPassword">Mots de passe</label>
@@ -29,10 +29,11 @@
             <button class="btn btn-lg btn-primary" type="submit">
                 Me connecter
             </button>
+            <p> ou inscrivez-vous <a href="{{ path('app_register') }}">  ici </a></p>
 
             <br/><br/>
             <div class="row">
-                <h3> Vous avez pas de compte ? Créer un compte <a href="{{ path('app_register') }}">  ici </a></h3>
+                    <p> <a href="{{ path('reset_password') }}">  Mot de passe oublié </a>  </p>
             </div>
         </form>
     </div>
