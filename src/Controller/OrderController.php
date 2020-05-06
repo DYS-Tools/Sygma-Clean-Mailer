@@ -52,6 +52,8 @@ class OrderController extends AbstractController
 
                 // le statue de la session de stripe // if payment ok statut order = payé, if echec = echec
                 // si la session est payer on crédite les mail
+
+                $payment->sendMailAfterOrder($order,$user);
             }
             if($offer == 'Pro'){
                 $session = $payment->makePayment(15,'Offre Pro');
