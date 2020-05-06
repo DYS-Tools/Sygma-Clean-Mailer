@@ -30,9 +30,9 @@ jobs:
 
       - run: composer install -n --prefer-dist
 
-      #- run: chmod -x 777 bin/console
-      # run: bin/console cache:clear --env=test
-      #- run: bin/console cache:warmup --env=test
+      - run: chmod -x 777 bin/console
+      - run: bin/console cache:clear --env=test
+      - run: bin/console cache:warmup --env=test
 
       # Database
       - run: ./bin/console doctrine:database:create --env=test
