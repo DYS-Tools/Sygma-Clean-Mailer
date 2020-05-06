@@ -30,25 +30,14 @@ jobs:
 
       - run: composer install -n --prefer-dist
 
-      - save_cache:
-          key: speedmailer-v1-dependencies-{{ checksum "composer.json" }}
-          paths:
-            - ./vendor
-
       #- run: chmod -x 777 bin/console
       # run: bin/console cache:clear --env=test
       #- run: bin/console cache:warmup --env=test
 
-      - restore_cache:
-          keys:
-            - speedmailer-node-v1-{{ checksum "package.json" }}
-            - speedmailer-node-v1-
-
       # Database
-      #- run: ./bin/console doctrine:database:create --env=test
-      #- run: ./bin/console doctrine:schema:create --env=test
-      #- run: ./bin/console doctrine:fixtures:load --env=test --no-interaction
-
+      - run: ./bin/console doctrine:database:create --env=test
+      - run: ./bin/console doctrine:schema:create --env=test
+      - run: ./bin/console doctrine:fixtures:load --env=test --no-interaction
 
       # Launch tests
       - run: chmod +x bin/phpunit
