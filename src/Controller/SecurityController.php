@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\GetEmailFormType;
 use App\Form\RegistrationFormType;
+use App\Form\ResetPasswordFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -90,6 +92,62 @@ class SecurityController extends AbstractController
         }
         $this->addFlash('info', "Votre compte a été vérifié");
         return $this->redirectToRoute('home');
+
+    }
+
+    /**
+     * @Route("/resetPassword", name="reset_password")
+     */
+    public function resetPassword(Request $request, EntityManagerInterface $entityManager, \Swift_Mailer $mailer)
+    {
+        $form = $this->createForm(GetEmailFormType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $token = bin2hex(random_bytes(13));
+            $repository = $this->getDoctrine()->getRepository(User::class);
+            $user = $repository->findOneBy(array('email' => $form->get('Email')->getData())); // trouver l'adresse mail POST du FORM
+            $user->setToken($token);
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $message = (new \Swift_Message('Reset password'))
+                ->setFrom('sacha6623@gmail.com')
+                ->setTo($form->get('Email')->getData())
+                ->setBody(
+                    $this->renderView(
+                        'emails/resetPassword.html.twig',
+                        ['token' => $token, 'user' => $user ]), 'text/html'
+                )
+            ;
+            $mailer->send($message);
+            $this->addFlash('info', "Email has been send");
+        }
+        return $this->render('security/reset.html.twig', [ 'resetForm' => $form->createView(), ]);
+    }
+
+    /**
+     * @Route("/resetPassword/{token}", name="reset_password_with_token")
+     */
+    public function resetPasswordWithToken(Request $request, $token, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $encoder){
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $user = $repository->findOneBytoken($token);
+        $form = $this->createForm(ResetPasswordFormType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            if($user->getToken() === $token) {
+                $user->setPassword($encoder->encodePassword($user, $form->get('password')->getData()));
+                $user->setToken('1');
+                $entityManager->persist($user);
+                $entityManager->flush();
+                $this->addFlash( 'info', "password updated !");
+                return $this->redirectToRoute('home');
+            }
+        } 
+        return $this->render('security/changePassword.html.twig', [
+            'changePasswordForm' => $form->createView(),
+        ]);
 
     }
 
