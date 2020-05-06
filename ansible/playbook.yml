@@ -62,32 +62,36 @@
       become: true
       lineinfile:
         dest: "{{ symfony_root_dir }}/.env"
-        regexp: ''
-        insertafter: ''
+        # replace
+        regexp: 'DATABASE_URL=mysql://root@127.0.0.1:3306/SpeedMailer'
+        # for
         line: DATABASE_URL=mysql://{{ sql_user }}:{{ sql_pass }}@localhost:3306/speedmailer
 
     - name: Add mail connexion information in .env file
       become: true
       lineinfile:
         dest: "{{ symfony_root_dir }}/.env"
-        regexp: ''
-        insertafter: ''
+        # replace
+        regexp: 'MAILER_URL=null://localhost'
+        # for
         line: MAILER_URL=gmail://{{ mail }}:{{ mail_password }}@localhost?encryption=tls&auth_mode=oauth
 
     - name: Add Secret Key Stripe connexion information in .env file
       become: true
       lineinfile:
         dest: "{{ symfony_root_dir }}/.env"
-        regexp: ''
-        insertafter: ''
+        # replace
+        regexp: 'STRIPE_SECRET_TEST=key'
+        # for
         line: STRIPE_SECRET_TEST={{ secret_key_stripe_test  }}
 
     - name: Add Public Key Stripe connexion information in .env file
       become: true
       lineinfile:
         dest: "{{ symfony_root_dir }}/.env"
-        regexp: ''
-        insertafter: ''
+        # replace
+        regexp: 'STRIPE_PUBLIC_TEST=key'
+        # for
         line: STRIPE_PUBLIC_TEST={{ public_key_stripe_test }}
 
     ###### end .env ######
@@ -145,15 +149,15 @@
     - name: Create DB if not exists
       command: '{{ symfony_console_path }} doctrine:database:create --if-not-exists --no-interaction'
 
-    #- name: make migration
-      #command: '{{ symfony_console_path }} make:migration'
+    - name: make migration
+      command: '{{ symfony_console_path }} make:migration'
 
     - name: Execute migrations
       command: '{{ symfony_console_path }} doctrine:migrations:migrate --no-interaction'
 
     - name: Load data fixtures
       command: '{{ symfony_console_path }} doctrine:fixtures:load --no-interaction'
-      when: symfony_env != "prod"
+      #when: symfony_env != "prod"
 
   roles:
     - php
