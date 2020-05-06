@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
-
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,7 +35,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function register(\Swift_Mailer $mailer, Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -46,12 +46,28 @@ class SecurityController extends AbstractController
             $user->setPassword( $passwordEncoder->encodePassword( $user,  $form->get('plainPassword')->getData() ));
             $user->setEmail($form->get('email')->getData());
 
+            $token = bin2hex(random_bytes(13));
+            $user->setToken($token);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
 
+            $message = (new \Swift_Message('Activate your account'))
+            ->setFrom('sacha6623@gmail.com')
+            ->setTo($user->getEmail())
+            ->setBody(
+                $this->renderView( 'emails/signup.html.twig', [
+                    'name' => $user->getUsername(),
+                    'user' => $user
+                    ]),
+                'text/html'
+            )
+            ;
+            $mailer->send($message);
 
-            $this->addFlash('info', "welcome to application");
+
+            $this->addFlash('info', "Bienvenue, pensez a verifier votre compte a l'aide de votre boite mail");
             return $this->redirectToRoute('home');
         }
 
@@ -59,6 +75,24 @@ class SecurityController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/activate/{token}", name="activate_account")
+     */
+    public function activateAccount($token, EntityManagerInterface $entityManager){
+        $repositoryUser = $this->getDoctrine()->getRepository(User::class);
+        $user = $repositoryUser->findOneBytoken($token);
+        
+        if($user->getToken() === $token) {
+            $user->setToken('1');
+            $entityManager->persist($user);
+            $entityManager->flush();
+        }
+        $this->addFlash('info', "Votre compte a été vérifié");
+        return $this->redirectToRoute('home');
+
+    }
+
 
     /**
      * @Route("/logout", name="app_logout")
