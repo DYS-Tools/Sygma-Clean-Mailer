@@ -28,14 +28,6 @@ jobs:
           #name: Install PHP gd
           #command: sudo -E docker-php-ext-install -j$(nproc) gd
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            # "composer.lock" can be used if it is committed to the repo
-            - speedmailer-v1-dependencies-{{ checksum "composer.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - speedmailer-v1-dependencies-
-
       - run: composer install -n --prefer-dist
 
       - save_cache:
