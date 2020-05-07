@@ -30,7 +30,7 @@ jobs:
 
       - run: composer install -n --prefer-dist
 
-      - run: chmod -x 777 bin/console
+      - run: chmod +x bin/console
       - run: bin/console cache:clear --env=test
       - run: bin/console cache:warmup --env=test
 
