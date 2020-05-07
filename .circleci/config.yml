@@ -8,7 +8,7 @@ jobs:
 
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_ROOT_PASSWORD: $sql_pass
+          MYSQL_ROOT_PASSWORD: root
 
     steps:
       - checkout
