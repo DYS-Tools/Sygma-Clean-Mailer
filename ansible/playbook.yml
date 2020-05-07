@@ -63,7 +63,7 @@
       lineinfile:
         dest: "{{ symfony_root_dir }}/.env"
         # replace
-        regexp: 'DATABASE_URL=mysql://root@127.0.0.1:3306/SpeedMailer'
+        regexp: 'DATABASE_URL=mysql://yohann@127.0.0.1:3306/SpeedMailer'
         # for
         line: DATABASE_URL=mysql://{{ sql_user }}:{{ sql_pass }}@localhost:3306/speedmailer
 
