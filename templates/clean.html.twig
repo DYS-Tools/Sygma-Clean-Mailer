@@ -25,11 +25,72 @@
     <p> choice your options</p>
     {{ form_start(listOptionForm) }}
     {{ form_widget(listOptionForm) }}
-    <button type="submit" class="btn btn-info pull-right">Select</button>
+    <button type="submit" class="btn btn-info pull-right cleanButton" data-toggle="modal" data-target="#modal">Clean</button>
     {{ form_end(listOptionForm) }}
 
     <br/><br/><br/>
 
 </div>
 
+<div id="modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Clean</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h3>Clean in progress</h3>
+      </div>
+      <br/><br/><br/>
+      <div class="modal-footer">
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+<script>
+    //console.log('traitement du javascript effectué');
+    $(document).ready(function () {
+
+        console.log(document.clean_options_form);
+        $('.cleanButton').click(function () {
+                var contenu = document.clean_options_form.options[this.selectedIndex].text;
+                alert(contenu);
+
+                var contenu = document.clean_options_form.texte.value;
+                console.log(contenu);
+
+                var contenu = document.clean_options_form.elements.length;
+                console.log(contenu);
+
+                var contenu = document.clean_options_form.elements.selectedIndex;
+                console.log(contenu);
+                
+            $('#modal-title').html("Clean");
+
+            /*
+            var url = '{{ path('clean') }}';
+            $.ajax({
+                type: 'post',
+                url: url,
+                success: function (data) {
+                    //var contenu= document.clean_options_form.elements.elements;
+                    //$('#modal').html(data);
+                    $('#modal').modal("show");
+                }
+            });
+            */
+
+        });
+    });
+</script>
 {% endblock %}

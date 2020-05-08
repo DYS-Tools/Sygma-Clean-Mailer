@@ -83,6 +83,7 @@ class cleanController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
             $this->addFlash('info', $deletemailNumber .' contact has deleted');
+            
 
         }
 
