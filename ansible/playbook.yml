@@ -149,8 +149,8 @@
     - name: Create DB if not exists
       command: '{{ symfony_console_path }} doctrine:database:create --if-not-exists --no-interaction'
 
-    - name: make migration
-      command: '{{ symfony_console_path }} make:migration'
+    #- name: make migration
+      #command: '{{ symfony_console_path }} make:migration'
 
     - name: Execute migrations
       command: '{{ symfony_console_path }} doctrine:migrations:migrate --no-interaction'
