@@ -152,8 +152,11 @@
     #- name: make migration
       #command: '{{ symfony_console_path }} make:migration'
 
-    - name: Execute migrations
-      command: '{{ symfony_console_path }} doctrine:migrations:migrate --no-interaction'
+    #- name: Execute migrations
+      #command: '{{ symfony_console_path }} doctrine:migrations:migrate --no-interaction'
+
+    - name: doctrine:schema:update
+      command: '{{ symfony_console_path }} doctrine:schema:update --force --no-interaction'
 
     - name: Load data fixtures
       command: '{{ symfony_console_path }} doctrine:fixtures:load --no-interaction'
