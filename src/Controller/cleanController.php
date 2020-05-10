@@ -61,7 +61,7 @@ class cleanController extends AbstractController
      * @Route("/clean", name="clean")
      */
     public function clean(Request $request, clean $clean, EntityManagerInterface $entityManager)
-    {
+    {  
         $form = $this->createForm(EmailFormType::class);
         $form->handleRequest($request);
 
@@ -71,11 +71,11 @@ class cleanController extends AbstractController
 
         $formList = $this->createForm(cleanOptionsFormType::class);
         $formList->handleRequest($request);
-
         if ($formList->isSubmitted() && $formList->isValid()) {
+            $fullcompleted = 1;
             $list = $formList['listSelect']->getData();
             $severalMode = $formList['severe']->getData();
-
+            
             $user = $this->getUser();
             $deletemailNumber = $clean->CleanMailingList($list,$severalMode);
 
@@ -83,10 +83,11 @@ class cleanController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
             $this->addFlash('info', $deletemailNumber .' contact has deleted');
-            
-
+            sleep(5);
+            $this->redirectToRoute('clean');
         }
-
+    
+        
         return $this->render('clean.html.twig', [
             'emailForm' => $form->createView(),
             'listOptionForm' => $formList->createView(),
