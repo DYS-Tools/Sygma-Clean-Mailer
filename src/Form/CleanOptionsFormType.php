@@ -27,7 +27,7 @@ class CleanOptionsFormType extends AbstractType
                 'choice_label' => function(ListMail $list) {
                     return ''.$list->getName().' ( '.$list->getContact().' Contact )';
                 },
-                //'attr' => ['class' => 'data-toggle="modal" data-target="#modal"'],
+                'attr' => ['class' => 'list'],
                 
             ])
 
