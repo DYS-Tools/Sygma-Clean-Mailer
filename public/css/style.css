@@ -237,6 +237,7 @@ hr{
     background-color: cornflowerblue;
 }
 
+
 @media (max-width:767px)
 {
     .social-icons li.title
@@ -246,3 +247,5 @@ hr{
         font-weight:600
     }
 }
+
+
